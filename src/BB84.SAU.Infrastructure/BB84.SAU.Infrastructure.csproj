@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Http" />
+		<PackageReference Include="Steamworks.NET" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BB84.SAU.Application\BB84.SAU.Application.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="steam_api64.dll" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,92 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D2251FF-C4D0-4D61-A9F1-0F96FB3ED8F4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DE6DA691-A9FC-4912-8C11-3739687FE9CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB84.SAU.Domain", "src\BB84.SAU.Domain\BB84.SAU.Domain.csproj", "{3BC01C69-34C9-44EF-AEA4-3C15F8EE7E8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB84.SAU.Application", "src\BB84.SAU.Application\BB84.SAU.Application.csproj", "{609B4B5D-6C34-4F25-90FD-B86A63152F32}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB84.SAU.Infrastructure", "src\BB84.SAU.Infrastructure\BB84.SAU.Infrastructure.csproj", "{96E2491F-AB65-440E-9C64-AF93AA951103}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB84.SAU.Presentation", "src\BB84.SAU.Presentation\BB84.SAU.Presentation.csproj", "{A39988CE-F985-43A0-AE40-6EB10F874E04}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB84.SAU", "src\BB84.SAU\BB84.SAU.csproj", "{0CE23D13-6069-4BDC-9809-EA71AD851453}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8B338112-976A-48BA-BDF6-4907542BA54F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB84.SAU.Domain.Tests", "tests\BB84.SAU.Domain.Tests\BB84.SAU.Domain.Tests.csproj", "{0CABCD48-F0F9-4DC6-9372-A92FD8BB0D46}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB84.SAU.Application.Tests", "tests\BB84.SAU.Application.Tests\BB84.SAU.Application.Tests.csproj", "{9CA2DDFD-BC6E-4D13-BF69-EC1FAE41C610}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB84.SAU.Infrastructure.Tests", "tests\BB84.SAU.Infrastructure.Tests\BB84.SAU.Infrastructure.Tests.csproj", "{59014AC6-A603-41CC-BDC8-EC91875D2ED1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BC01C69-34C9-44EF-AEA4-3C15F8EE7E8D}.Debug|x64.ActiveCfg = Debug|x64
+		{3BC01C69-34C9-44EF-AEA4-3C15F8EE7E8D}.Debug|x64.Build.0 = Debug|x64
+		{3BC01C69-34C9-44EF-AEA4-3C15F8EE7E8D}.Release|x64.ActiveCfg = Release|x64
+		{3BC01C69-34C9-44EF-AEA4-3C15F8EE7E8D}.Release|x64.Build.0 = Release|x64
+		{609B4B5D-6C34-4F25-90FD-B86A63152F32}.Debug|x64.ActiveCfg = Debug|x64
+		{609B4B5D-6C34-4F25-90FD-B86A63152F32}.Debug|x64.Build.0 = Debug|x64
+		{609B4B5D-6C34-4F25-90FD-B86A63152F32}.Release|x64.ActiveCfg = Release|x64
+		{609B4B5D-6C34-4F25-90FD-B86A63152F32}.Release|x64.Build.0 = Release|x64
+		{96E2491F-AB65-440E-9C64-AF93AA951103}.Debug|x64.ActiveCfg = Debug|x64
+		{96E2491F-AB65-440E-9C64-AF93AA951103}.Debug|x64.Build.0 = Debug|x64
+		{96E2491F-AB65-440E-9C64-AF93AA951103}.Release|x64.ActiveCfg = Release|x64
+		{96E2491F-AB65-440E-9C64-AF93AA951103}.Release|x64.Build.0 = Release|x64
+		{A39988CE-F985-43A0-AE40-6EB10F874E04}.Debug|x64.ActiveCfg = Debug|x64
+		{A39988CE-F985-43A0-AE40-6EB10F874E04}.Debug|x64.Build.0 = Debug|x64
+		{A39988CE-F985-43A0-AE40-6EB10F874E04}.Release|x64.ActiveCfg = Release|x64
+		{A39988CE-F985-43A0-AE40-6EB10F874E04}.Release|x64.Build.0 = Release|x64
+		{0CE23D13-6069-4BDC-9809-EA71AD851453}.Debug|x64.ActiveCfg = Debug|x64
+		{0CE23D13-6069-4BDC-9809-EA71AD851453}.Debug|x64.Build.0 = Debug|x64
+		{0CE23D13-6069-4BDC-9809-EA71AD851453}.Release|x64.ActiveCfg = Release|x64
+		{0CE23D13-6069-4BDC-9809-EA71AD851453}.Release|x64.Build.0 = Release|x64
+		{0CABCD48-F0F9-4DC6-9372-A92FD8BB0D46}.Debug|x64.ActiveCfg = Debug|x64
+		{0CABCD48-F0F9-4DC6-9372-A92FD8BB0D46}.Debug|x64.Build.0 = Debug|x64
+		{0CABCD48-F0F9-4DC6-9372-A92FD8BB0D46}.Release|x64.ActiveCfg = Release|x64
+		{0CABCD48-F0F9-4DC6-9372-A92FD8BB0D46}.Release|x64.Build.0 = Release|x64
+		{9CA2DDFD-BC6E-4D13-BF69-EC1FAE41C610}.Debug|x64.ActiveCfg = Debug|x64
+		{9CA2DDFD-BC6E-4D13-BF69-EC1FAE41C610}.Debug|x64.Build.0 = Debug|x64
+		{9CA2DDFD-BC6E-4D13-BF69-EC1FAE41C610}.Release|x64.ActiveCfg = Release|x64
+		{9CA2DDFD-BC6E-4D13-BF69-EC1FAE41C610}.Release|x64.Build.0 = Release|x64
+		{59014AC6-A603-41CC-BDC8-EC91875D2ED1}.Debug|x64.ActiveCfg = Debug|x64
+		{59014AC6-A603-41CC-BDC8-EC91875D2ED1}.Debug|x64.Build.0 = Debug|x64
+		{59014AC6-A603-41CC-BDC8-EC91875D2ED1}.Release|x64.ActiveCfg = Release|x64
+		{59014AC6-A603-41CC-BDC8-EC91875D2ED1}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3BC01C69-34C9-44EF-AEA4-3C15F8EE7E8D} = {DE6DA691-A9FC-4912-8C11-3739687FE9CB}
+		{609B4B5D-6C34-4F25-90FD-B86A63152F32} = {DE6DA691-A9FC-4912-8C11-3739687FE9CB}
+		{96E2491F-AB65-440E-9C64-AF93AA951103} = {DE6DA691-A9FC-4912-8C11-3739687FE9CB}
+		{A39988CE-F985-43A0-AE40-6EB10F874E04} = {DE6DA691-A9FC-4912-8C11-3739687FE9CB}
+		{0CE23D13-6069-4BDC-9809-EA71AD851453} = {DE6DA691-A9FC-4912-8C11-3739687FE9CB}
+		{0CABCD48-F0F9-4DC6-9372-A92FD8BB0D46} = {8B338112-976A-48BA-BDF6-4907542BA54F}
+		{9CA2DDFD-BC6E-4D13-BF69-EC1FAE41C610} = {8B338112-976A-48BA-BDF6-4907542BA54F}
+		{59014AC6-A603-41CC-BDC8-EC91875D2ED1} = {8B338112-976A-48BA-BDF6-4907542BA54F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91420860-34D6-42D4-BAED-D3B7CC7E8742}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,25 @@
+﻿<Application x:Class="BB84.SAU.App"
+						 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+						 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+						 xmlns:vm="clr-namespace:BB84.SAU.Application.ViewModels;assembly=BB84.SAU.Application"
+						 xmlns:v="clr-namespace:BB84.SAU.Presentation.Controls;assembly=BB84.SAU.Presentation"
+						 Startup="Application_Startup"
+						 Exit="Application_Exit">
+	<Application.Resources>
+		<DataTemplate DataType="{x:Type TypeName=vm:AchievementsViewModel}">
+			<v:AchievementsControl />
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type TypeName=vm:AboutViewModel}">
+			<v:AboutControl />
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type TypeName=vm:GamesViewModel}">
+			<v:GamesControl />
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type TypeName=vm:SettingsViewModel}">
+			<v:SettingsControl />
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type TypeName=vm:UserDataViewModel}">
+			<v:UserDataControl />
+		</DataTemplate>
+	</Application.Resources>
+</Application>
