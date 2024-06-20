@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>BB84.SAU.ico</ApplicationIcon>
+		<UserSecretsId>3dff173d-f8d7-4c4f-8eeb-6a04e8d6bcfa</UserSecretsId>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Content Include="BB84.SAU.ico" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BB84.SAU.Infrastructure\BB84.SAU.Infrastructure.csproj" />
+		<ProjectReference Include="..\BB84.SAU.Presentation\BB84.SAU.Presentation.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>

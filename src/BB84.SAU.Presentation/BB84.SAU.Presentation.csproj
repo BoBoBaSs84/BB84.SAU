@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="FontAwesome5" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BB84.SAU.Application\BB84.SAU.Application.csproj" />
+	</ItemGroup>
+</Project>

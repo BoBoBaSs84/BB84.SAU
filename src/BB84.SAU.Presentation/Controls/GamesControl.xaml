@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="BB84.SAU.Presentation.Controls.GamesControl"
+						 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+						 xmlns:fa="http://schemas.fontawesome.com/icons/"
+						 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+						 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+						 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+						 xmlns:vm="clr-namespace:BB84.SAU.Application.ViewModels;assembly=BB84.SAU.Application"
+						 d:DataContext="{d:DesignInstance Type=vm:GamesViewModel}"
+						 mc:Ignorable="d"
+						 d:Background="WhiteSmoke"
+						 d:DesignHeight="400"
+						 d:DesignWidth="600">
+	<Control.Resources>
+		<BooleanToVisibilityConverter x:Key="btvc" />
+	</Control.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*" />
+			<ColumnDefinition Width="12*" />
+			<ColumnDefinition Width="1*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="1*" />
+			<RowDefinition Height="7*" />
+			<RowDefinition Height="1*" />
+		</Grid.RowDefinitions>
+		<Grid x:Name="GamesGrid"
+					Grid.Column="1"
+					Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<!-- Games -->
+			<GroupBox x:Name="GamesGroupBox"
+								Grid.Column="0"
+								Grid.ColumnSpan="3"
+								Grid.Row="0"
+								Header="Games">
+				<DataGrid x:Name="GamesDataGrid"
+									AutoGenerateColumns="False"									
+									HeadersVisibility="Column"
+									ItemsSource="{Binding Model.Games}"
+									IsReadOnly="True"
+									SelectedItem="{Binding SelectedGame}"
+									VerticalScrollBarVisibility="Auto">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Id"
+																Binding="{Binding Id}"
+																Width="Auto" />
+						<DataGridTextColumn Header="Title"
+																Binding="{Binding Title}"
+																Width="*" />
+					</DataGrid.Columns>
+				</DataGrid>
+			</GroupBox>
+			<!-- Game -->
+			<GroupBox Grid.Column="0"
+								Grid.ColumnSpan="3"
+								Grid.Row="1"
+								Header="Game"
+								Visibility="{Binding IsGameVisible, Converter={StaticResource btvc}}">
+				<Grid x:Name="GameGrid">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<!-- Game Image -->
+					<Image x:Name="GameImage"
+								 Grid.Column="0"
+								 MaxHeight="120"
+								 Margin="4"
+								 Source="{Binding GameImage.Source}"
+								 RenderOptions.BitmapScalingMode="NearestNeighbor"
+								 RenderOptions.EdgeMode="Aliased"
+								 VerticalAlignment="Center" />
+					<!-- Game Data -->
+					<Grid Grid.Column="1">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Label Grid.Column="0"
+									 Grid.Row="0"
+									 Content="Id:" />
+						<Label Grid.Column="1"
+									 Grid.Row="0"
+									 Content="{Binding SelectedGame.Id}" />
+						<Label Grid.Column="0"
+									 Grid.Row="1"
+									 Content="Title:" />
+						<Label Grid.Column="1"
+									 Grid.Row="1"
+									 Content="{Binding SelectedGame.Title}" />
+						<Label Grid.Column="0"
+									 Grid.Row="2"
+									 Content="Description:" />
+						<TextBlock Grid.Column="1"
+											 Grid.Row="2"
+											 Text="{Binding SelectedGame.Description}"
+											 TextWrapping="Wrap"
+											 Margin="5" />
+					</Grid>
+				</Grid>
+			</GroupBox>
+			<!-- Load Games -->
+			<Button x:Name="LoadGamesButton"
+							Grid.Column="0"
+							Grid.Row="2"
+							Command="{Binding LoadGamesCommand}"
+							Margin="5">
+				<StackPanel Orientation="Horizontal"
+										Margin="3">
+					<fa:SvgAwesome Icon="Solid_Sync"
+												 Height="20"
+												 ToolTip="Load or refresh games" />
+				</StackPanel>
+			</Button>
+			<!-- Select Game -->
+			<Button x:Name="SelectGameButton"
+							Grid.Column="2"
+							Grid.Row="2"
+							Command="{Binding SelectGameCommand}"
+							CommandParameter="{Binding SelectedGame}"
+							Margin="5"
+							Visibility="{Binding IsSelectButtonVisible, Converter={StaticResource btvc}}">
+				<StackPanel Orientation="Horizontal"
+										Margin="3">
+					<fa:SvgAwesome Height="20"
+												 Icon="Solid_Check"
+												 ToolTip="Select game and continue" />
+				</StackPanel>
+			</Button>
+		</Grid>
+	</Grid>
+</UserControl>
