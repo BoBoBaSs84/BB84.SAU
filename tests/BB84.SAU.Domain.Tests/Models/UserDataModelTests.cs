@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BB84.SAU.Domain.Models;
 
-using BB84.SAU.Domain.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BB84.SAU.Domain.Tests.Models;
 
@@ -13,21 +13,21 @@ public sealed class UserDataModelTests
 	{
 		UserDataModel? model;
 		string name = "TestName",
-			imageUrl = "ImageUrl",
-			url = "Url";
+			imageUrl = "TestImageUrl",
+			profileUrl = "TestUrl";
 		DateTime created = DateTime.MaxValue,
 			lastLogOff = DateTime.MaxValue,
 			lastUpdate = DateTime.MaxValue;
 
-		model = new(name, imageUrl, url, created, lastLogOff, lastUpdate);
+		model = new(name, imageUrl, profileUrl, created, lastLogOff, lastUpdate);
 
 		Assert.IsNotNull(model);
-		Assert.AreEqual(string.Empty, model.Name);
-		Assert.AreEqual(string.Empty, model.ImageUrl);
-		Assert.IsNull(model.ProfileUrl);
-		Assert.AreEqual(DateTime.MinValue, model.Created);
-		Assert.AreEqual(DateTime.MinValue, model.LastLogOff);
-		Assert.IsNull(model.LastUpdate);
+		Assert.AreEqual(name, model.Name);
+		Assert.AreEqual(imageUrl, model.ImageUrl);
+		Assert.AreEqual(profileUrl, model.ProfileUrl);
+		Assert.AreEqual(created, model.Created);
+		Assert.AreEqual(lastLogOff, model.LastLogOff);
+		Assert.AreEqual(lastUpdate, model.LastUpdate);
 	}
 
 	[TestMethod]
