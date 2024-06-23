@@ -1,5 +1,5 @@
-﻿<!---
-[![CI](https://github.com/BoBoBaSs84/BB84.SAU/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/BoBoBaSs84/BB84.SAU/actions/workflows/ci.yml)
+﻿[![CI](https://github.com/BoBoBaSs84/BB84.SAU/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/BoBoBaSs84/BB84.SAU/actions/workflows/ci.yml)
+<!---
 [![CD](https://github.com/BoBoBaSs84/BB84.SAU/actions/workflows/cd.yml/badge.svg?branch=main)](https://github.com/BoBoBaSs84/BB84.SAU/actions/workflows/cd.yml)
 -->
 [![.NET](https://img.shields.io/badge/net8.0-5C2D91?logo=.NET&labelColor=gray)](https://github.com/BoBoBaSs84/BB84.SAU)
