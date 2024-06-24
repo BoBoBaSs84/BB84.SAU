@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BB84.SAU.Domain.Models;
 
-using BB84.SAU.Domain.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BB84.SAU.Domain.Tests.Models;
 
@@ -16,8 +16,8 @@ public sealed class AchievementModelTests
 		string name = "UnitTest";
 		string? description = "UnitTestDescription";
 		bool hidden = false;
-		string icon = "http://Test";
-		string iconGray = "http://Test";
+		string icon = "http://Test/icon";
+		string iconGray = "http://Test/iconGray";
 
 		model = new(id, name, description, hidden, icon, iconGray);
 
@@ -28,8 +28,10 @@ public sealed class AchievementModelTests
 		Assert.AreEqual(hidden, model.Hidden);
 		Assert.AreEqual(icon, model.Icon);
 		Assert.AreEqual(iconGray, model.IconGray);
+		Assert.AreEqual(iconGray, model.ImageUrl);
 		Assert.AreEqual(false, model.Unlocked);
 		Assert.IsNull(model.UnlockedTime);
+		Assert.IsNull(model.LastUpdate);
 	}
 
 	[TestMethod]
@@ -41,10 +43,11 @@ public sealed class AchievementModelTests
 		string name = "UnitTest";
 		string? description = "UnitTestDescription";
 		bool hidden = false;
-		string icon = "http://Test";
-		string iconGray = "http://Test";
+		string icon = "http://Test/icon";
+		string iconGray = "http://Test/iconGray";
 		bool unlocked = true;
 		DateTime unlockedDate = DateTime.MinValue;
+		DateTime lastUpdate = DateTime.MinValue;
 
 		model.Id = id;
 		model.Name = name;
@@ -54,6 +57,7 @@ public sealed class AchievementModelTests
 		model.IconGray = iconGray;
 		model.Unlocked = unlocked;
 		model.UnlockedTime = unlockedDate;
+		model.LastUpdate = lastUpdate;
 
 		Assert.AreEqual(id, model.Id);
 		Assert.AreEqual(name, model.Name);
@@ -61,7 +65,9 @@ public sealed class AchievementModelTests
 		Assert.AreEqual(hidden, model.Hidden);
 		Assert.AreEqual(icon, model.Icon);
 		Assert.AreEqual(iconGray, model.IconGray);
+		Assert.AreEqual(icon, model.ImageUrl);
 		Assert.AreEqual(unlocked, model.Unlocked);
 		Assert.AreEqual(unlockedDate, model.UnlockedTime);
+		Assert.AreEqual(lastUpdate, model.LastUpdate);
 	}
 }

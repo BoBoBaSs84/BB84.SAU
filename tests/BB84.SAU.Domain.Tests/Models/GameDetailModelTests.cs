@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BB84.SAU.Domain.Models;
 
-using BB84.SAU.Domain.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BB84.SAU.Domain.Tests.Models;
 
@@ -8,7 +8,7 @@ namespace BB84.SAU.Domain.Tests.Models;
 public sealed class GameDetailModelTests
 {
 	[TestMethod]
-	[TestCategory("UnitTest")]
+	[TestCategory("Constructor")]
 	public void GameDetailModelTest()
 	{
 		GameDetailModel? model;
@@ -31,7 +31,7 @@ public sealed class GameDetailModelTests
 	[TestMethod]
 	public void GameDetailModelSetValuesTest()
 	{
-		GameDetailModel? model = new(0, string.Empty, string.Empty, string.Empty);
+		GameDetailModel? model = new();
 		int id = 1;
 		string title = "UnitTest";
 		string description = "UnitTestDescription";
