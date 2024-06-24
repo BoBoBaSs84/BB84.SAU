@@ -4,14 +4,14 @@ using BB84.Extensions;
 using BB84.Notifications.Attributes;
 using BB84.Notifications.Commands;
 using BB84.Notifications.Interfaces.Commands;
-
-using Microsoft.Extensions.Options;
-
+using BB84.SAU.Application.Interfaces.Application.Provider;
 using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Application.ViewModels.Base;
 using BB84.SAU.Domain.Models;
 using BB84.SAU.Domain.Settings;
+
+using Microsoft.Extensions.Options;
 
 namespace BB84.SAU.Application.ViewModels;
 
@@ -23,6 +23,7 @@ public sealed class AchievementsViewModel : ViewModelBase
 	private readonly ISteamApiService _steamApiService;
 	private readonly ISteamWebService _steamWebService;
 	private readonly SteamSettings _steamSettings;
+	private readonly IDateTimeProvider _dateTimeProvider;
 	private AchievementModel? _selectedAchievement;
 	private Image? _achievementImage;
 	private GameDetailModel _selectedGame;
@@ -34,11 +35,13 @@ public sealed class AchievementsViewModel : ViewModelBase
 	/// <param name="steamApiService">The steam api service instance to use.</param>
 	/// <param name="steamWebService">The steam web service instance to use.</param>
 	/// <param name="options">The steam setting options to use.</param>
-	public AchievementsViewModel(ISteamApiService steamApiService, ISteamWebService steamWebService, IOptions<SteamSettings> options)
+	/// <param name="dateTimeProvider">The date time provider instance to use.</param>
+	public AchievementsViewModel(ISteamApiService steamApiService, ISteamWebService steamWebService, IOptions<SteamSettings> options, IDateTimeProvider dateTimeProvider)
 	{
 		_steamApiService = steamApiService;
 		_steamWebService = steamWebService;
 		_steamSettings = options.Value;
+		_dateTimeProvider = dateTimeProvider;
 		_selectedGame = new();
 
 		PropertyChanging += (s, e) => OnPropertyChanging(e.PropertyName);
@@ -163,11 +166,7 @@ public sealed class AchievementsViewModel : ViewModelBase
 		_steamApiService.ResetAchievement(model.Id);
 		_steamApiService.StoreStats();
 
-		model.Unlocked = false;
-		model.UnlockedTime = null;
-		model.LastUpdate = DateTime.Now;
-
-		AchievementImage = CreateImageFromUri(new(model.ImageUrl));
+		SetAchievement(model, false, null);
 	}
 
 	private void UnlockAchievement(AchievementModel? model)
@@ -178,11 +177,7 @@ public sealed class AchievementsViewModel : ViewModelBase
 		_steamApiService.UnlockAchievement(model.Id);
 		_steamApiService.StoreStats();
 
-		model.Unlocked = true;
-		model.UnlockedTime = DateTime.Now;
-		model.LastUpdate = DateTime.Now;
-
-		AchievementImage = CreateImageFromUri(new(model.ImageUrl));
+		SetAchievement(model, true, _dateTimeProvider.Now);
 	}
 
 	private void OnPropertyChanging(string? propertyName)
@@ -193,7 +188,7 @@ public sealed class AchievementsViewModel : ViewModelBase
 		if (propertyName == nameof(Model))
 		{
 			if (_steamApiService.StatsRequested.IsTrue())
-				_ = _steamApiService.StoreStats();
+				_steamApiService.StoreStats();
 
 			if (_steamApiService.Initialized.IsTrue())
 				_steamApiService.Shutdown();
@@ -208,13 +203,25 @@ public sealed class AchievementsViewModel : ViewModelBase
 		if (propertyName == nameof(Model))
 		{
 			if (_steamApiService.Initialized.IsFalse())
-				_ = _steamApiService.Init(Model.Id);
+				_steamApiService.Init(Model.Id);
 
 			if (_steamApiService.StatsRequested.IsFalse())
-				_ = _steamApiService.RequestCurrentStats();
+				_steamApiService.RequestCurrentStats();
 		}
 
 		if (propertyName == nameof(SelectedAchievement) && SelectedAchievement is not null)
 			AchievementImage = CreateImageFromUri(new(SelectedAchievement.ImageUrl));
+	}
+
+	private void SetAchievement(AchievementModel model, bool unlocked = false, DateTime? unlockedTime = null)
+	{
+		model.Unlocked = unlocked;
+		model.UnlockedTime = unlockedTime;
+		model.LastUpdate = _dateTimeProvider.Now;
+
+		RaisePropertyChanged(nameof(IsAchievementLockable));
+		RaisePropertyChanged(nameof(IsAchievementUnlockable));
+
+		AchievementImage = CreateImageFromUri(new(model.ImageUrl));
 	}
 }
