@@ -1,4 +1,5 @@
-﻿using BB84.SAU.Application.Interfaces.Application.Services;
+﻿using BB84.Notifications.Extensions;
+using BB84.SAU.Application.Interfaces.Application.Services;
 
 namespace BB84.SAU.Application.Services;
 
@@ -7,8 +8,17 @@ namespace BB84.SAU.Application.Services;
 /// </summary>
 internal sealed class NotificationService : INotificationService
 {
-	public event AsyncNotificationEventHandler? MessageReceived;
+	/// <inheritdoc/>
+	public event AsyncNotificationEventHandler? AsyncNotificationReceived;
 
+	/// <inheritdoc/>
+	public event NotificationEventHandler? NotificationReceived;
+
+	/// <inheritdoc/>
 	public void Send(string message)
-		=> MessageReceived?.Invoke(this, message);
+	{
+		AsyncNotificationReceived?.Invoke(this, message)
+			.FireAndForgetSafeAsync();
+		NotificationReceived?.Invoke(this, message);
+	}
 }

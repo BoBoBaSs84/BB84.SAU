@@ -29,7 +29,7 @@ public partial class MainWindow : Window
 		InitializeComponent();
 
 		_notificationService = notificationService;
-		_notificationService.MessageReceived += async (s, e) => await OnMessageReceived(e);
+		_notificationService.AsyncNotificationReceived += async (s, e) => await OnMessageReceived(e);
 
 		_aboutViewModel = aboutViewModel;
 		DataContext = _mainViewModel = mainViewModel;
