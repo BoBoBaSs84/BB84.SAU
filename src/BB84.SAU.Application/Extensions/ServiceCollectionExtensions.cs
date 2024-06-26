@@ -27,9 +27,10 @@ internal static class ServiceCollectionExtensions
 	/// <returns>The enriched service collection.</returns>
 	internal static IServiceCollection RegisterViewModels(this IServiceCollection services)
 	{
-		services.TryAddSingleton<AchievementsViewModel>();
 		services.TryAddSingleton<AboutViewModel>();
+		services.TryAddSingleton<AchievementsViewModel>();
 		services.TryAddSingleton<GamesViewModel>();
+		services.TryAddSingleton<LogbookViewModel>();
 		services.TryAddSingleton<MainViewModel>();
 		services.TryAddSingleton<SettingsViewModel>();
 		services.TryAddSingleton<UserDataViewModel>();

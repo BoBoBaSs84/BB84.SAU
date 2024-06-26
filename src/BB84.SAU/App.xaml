@@ -15,6 +15,9 @@
 		<DataTemplate DataType="{x:Type TypeName=vm:GamesViewModel}">
 			<v:GamesControl />
 		</DataTemplate>
+		<DataTemplate DataType="{x:Type TypeName=vm:LogbookViewModel}">
+			<v:LogbookControl />
+		</DataTemplate>
 		<DataTemplate DataType="{x:Type TypeName=vm:SettingsViewModel}">
 			<v:SettingsControl />
 		</DataTemplate>

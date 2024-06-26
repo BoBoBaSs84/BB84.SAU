@@ -38,7 +38,9 @@ public partial class MainWindow : Window
 	private async Task OnMessageReceived(string message)
 	{
 		StatusBarItem.Content = message;
-		await Task.Delay(2000);
+
+		await Task.Delay(2500);
+
 		StatusBarItem.Content = string.Empty;
 	}
 
@@ -57,6 +59,9 @@ public partial class MainWindow : Window
 	private void AchievementsStackPanel_MouseDown(object sender, MouseButtonEventArgs e)
 		=> _mainViewModel.NavigationService.NavigateTo<AchievementsViewModel>();
 
+	private void LogbookStackPanel_MouseDown(object sender, MouseButtonEventArgs e)
+		=> _mainViewModel.NavigationService.NavigateTo<LogbookViewModel>();
+
 	private void AboutStackPanel_MouseDown(object sender, MouseButtonEventArgs e)
 		=> _mainViewModel.NavigationService.NavigateTo<AboutViewModel>();
 
@@ -69,16 +74,12 @@ public partial class MainWindow : Window
 	private void StackPanelItem_MouseEnter(object sender, MouseEventArgs e)
 	{
 		if (sender is StackPanel panel)
-		{
 			panel.Background = Brushes.Gainsboro;
-		}
 	}
 
 	private void StackPanelItem_MouseLeave(object sender, MouseEventArgs e)
 	{
 		if (sender is StackPanel panel)
-		{
 			panel.Background = Brushes.WhiteSmoke;
-		}
 	}
 }
