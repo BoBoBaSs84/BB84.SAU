@@ -20,7 +20,7 @@ public sealed class LogbookViewModel : ViewModelBase
 	public LogbookViewModel(INotificationService notificationService)
 	{
 		_notificationService = notificationService;
-		_notificationService.NotificationReceived += (s, e) => OnMessageReceived(e);
+		_notificationService.NotificationReceived += (sender, message) => OnNotificationReceived(message);
 		LogbookEntries = [];
 	}
 
@@ -29,6 +29,6 @@ public sealed class LogbookViewModel : ViewModelBase
 	/// </summary>
 	public ObservableCollection<LogbookModel> LogbookEntries { get; }
 
-	private void OnMessageReceived(string e)
-		=> LogbookEntries.Add(new(e));
+	private void OnNotificationReceived(string message)
+		=> LogbookEntries.Add(new(message));
 }
