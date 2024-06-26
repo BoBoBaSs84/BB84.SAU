@@ -20,7 +20,7 @@ public sealed class LogbookViewModel : ViewModelBase
 	public LogbookViewModel(INotificationService notificationService)
 	{
 		_notificationService = notificationService;
-		_notificationService.MessageReceived += async (s, e) => await OnMessageReceived(e);
+		_notificationService.NotificationReceived += (s, e) => OnMessageReceived(e);
 		LogbookEntries = [];
 	}
 
@@ -29,6 +29,6 @@ public sealed class LogbookViewModel : ViewModelBase
 	/// </summary>
 	public ObservableCollection<LogbookModel> LogbookEntries { get; }
 
-	private async Task OnMessageReceived(string e)
-		=> await Task.Factory.StartNew(() => LogbookEntries.Add(new(e)));
+	private void OnMessageReceived(string e)
+		=> LogbookEntries.Add(new(e));
 }
