@@ -96,6 +96,20 @@
 								 FontWeight="Bold"
 								 Margin="5,0,0,0" />
 				</StackPanel>
+				<StackPanel x:Name="LogbookStackPanel"
+										Orientation="Horizontal"
+										Margin="5"
+										MouseEnter="StackPanelItem_MouseEnter"
+										MouseLeave="StackPanelItem_MouseLeave"
+										MouseDown="LogbookStackPanel_MouseDown">
+					<fa:SvgAwesome Icon="Solid_ClipboardList"
+												 Height="20"
+												 Width="32" />
+					<Label Content="Logbook"
+								 FontSize="14"
+								 FontWeight="Bold"
+								 Margin="5,0,0,0" />
+				</StackPanel>				
 				<StackPanel x:Name="AboutStackPanel"
 										Orientation="Horizontal"
 										Margin="5"
