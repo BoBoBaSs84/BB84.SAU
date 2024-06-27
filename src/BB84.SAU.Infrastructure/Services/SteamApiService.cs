@@ -1,10 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
-
-using BB84.SAU.Application.Interfaces.Application.Services;
+﻿using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Domain.Exceptions;
+using BB84.SAU.Infrastructure.Interfaces.Provider;
 
-using Steamworks;
+using Microsoft.Extensions.Logging;
 
 namespace BB84.SAU.Infrastructure.Services;
 
@@ -13,12 +12,11 @@ namespace BB84.SAU.Infrastructure.Services;
 /// </summary>
 /// <param name="loggerService">The logger service instance to use.</param>
 /// <param name="notificationService">The notification service instance to use.</param>
-internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerService, INotificationService notificationService) : ISteamApiService
+/// <param name="steamWorksProvider">The steam works provider instance to use.</param>
+/// <param name="fileProvider">The file provider instance to use.</param>
+internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerService, INotificationService notificationService, ISteamWorksProvider steamWorksProvider, IFileProvider fileProvider) : ISteamApiService
 {
-	private const string SteamAppFile = "steam_appid.txt";
-	private static readonly string BaseDirectory = AppContext.BaseDirectory;
-	private readonly ILoggerService<SteamApiService> _loggerService = loggerService;
-	private readonly INotificationService _notificationService = notificationService;
+	private static readonly string SteamAppFileFullPath = Path.Combine(AppContext.BaseDirectory, "steam_appid.txt");
 
 	private static readonly Action<ILogger, Exception?> LogException =
 		LoggerMessage.Define(LogLevel.Error, 0, "Exception occured.");
@@ -34,11 +32,9 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 	{
 		try
 		{
-			string filePath = Path.Combine(BaseDirectory, SteamAppFile);
+			fileProvider.WriteAllText(SteamAppFileFullPath, $"{appId}");
 
-			File.WriteAllText(filePath, $"{appId}");
-
-			bool success = SteamAPI.Init();
+			bool success = steamWorksProvider.Init();
 
 			if (success)
 				AppId = appId;
@@ -47,8 +43,8 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogExceptionWithParams, appId, ex);
-			_notificationService.Send(ex.Message);
+			loggerService.Log(LogExceptionWithParams, appId, ex);
+			notificationService.Send(ex.Message);
 			return false;
 		}
 	}
@@ -60,14 +56,14 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 			if (!Initialized)
 				throw new SteamSdkException("SDK is not initialized!");
 
-			StatsRequested = SteamUserStats.RequestCurrentStats();
+			StatsRequested = steamWorksProvider.RequestCurrentStats();
 
 			return StatsRequested;
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogException, ex);
-			_notificationService.Send(ex.Message);
+			loggerService.Log(LogException, ex);
+			notificationService.Send(ex.Message);
 			return false;
 		}
 	}
@@ -79,7 +75,7 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 			if (!StatsRequested)
 				throw new SteamSdkException("Stats have not been requested!");
 
-			bool result = SteamUserStats.GetAchievementAndUnlockTime(name, out bool achieved, out uint unlockTime);
+			bool result = steamWorksProvider.GetAchievementAndUnlockTime(name, out bool achieved, out uint unlockTime);
 			DateTime? dateTime = achieved
 				? DateTimeOffset.FromUnixTimeSeconds(unlockTime).LocalDateTime
 				: default;
@@ -88,8 +84,8 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogExceptionWithParams, name, ex);
-			_notificationService.Send(ex.Message);
+			loggerService.Log(LogExceptionWithParams, name, ex);
+			notificationService.Send(ex.Message);
 			return (false, default);
 		}
 	}
@@ -101,14 +97,14 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 			if (!StatsRequested)
 				throw new SteamSdkException("Stats have not been requested!");
 
-			bool result = SteamUserStats.ClearAchievement(name);
+			bool result = steamWorksProvider.ClearAchievement(name);
 
 			return result;
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogExceptionWithParams, name, ex);
-			_notificationService.Send(ex.Message);
+			loggerService.Log(LogExceptionWithParams, name, ex);
+			notificationService.Send(ex.Message);
 			return false;
 		}
 	}
@@ -120,14 +116,14 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 			if (!StatsRequested)
 				throw new SteamSdkException("Stats have not been requested!");
 
-			bool result = SteamUserStats.SetAchievement(name);
+			bool result = steamWorksProvider.SetAchievement(name);
 
 			return result;
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogExceptionWithParams, name, ex);
-			_notificationService.Send(ex.Message);
+			loggerService.Log(LogExceptionWithParams, name, ex);
+			notificationService.Send(ex.Message);
 			return false;
 		}
 	}
@@ -139,17 +135,15 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 			if (!Initialized)
 				throw new SteamSdkException("SDK is not initialized!");
 
-			string filePath = Path.Combine(BaseDirectory, SteamAppFile);
+			fileProvider.Delete(SteamAppFileFullPath);
 
-			File.Delete(filePath);
-
-			SteamAPI.Shutdown();
+			steamWorksProvider.Shutdown();
 
 			AppId = null;
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogException, ex);
+			loggerService.Log(LogException, ex);
 		}
 	}
 
@@ -159,12 +153,12 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 		{
 			return !StatsRequested
 				? throw new SteamSdkException("Stats have not been requested!")
-				: SteamUserStats.StoreStats();
+				: steamWorksProvider.StoreStats();
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogException, ex);
-			_notificationService.Send(ex.Message);
+			loggerService.Log(LogException, ex);
+			notificationService.Send(ex.Message);
 			return false;
 		}
 	}

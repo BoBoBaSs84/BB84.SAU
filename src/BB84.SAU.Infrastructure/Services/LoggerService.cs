@@ -1,7 +1,8 @@
-﻿using BB84.SAU.Application.Interfaces.Infrastructure.Services;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 
 using Microsoft.Extensions.Logging;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BB84.SAU.Infrastructure.Services;
 
