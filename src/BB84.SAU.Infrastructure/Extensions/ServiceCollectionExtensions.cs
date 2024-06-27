@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
+using BB84.SAU.Application.Interfaces.Infrastructure.Services;
+using BB84.SAU.Infrastructure.Services;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
-using BB84.SAU.Application.Interfaces.Infrastructure.Services;
-using BB84.SAU.Infrastructure.Services;
 
 namespace BB84.SAU.Infrastructure.Extensions;
 

@@ -1,12 +1,14 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
+using BB84.SAU.Application.Interfaces.Infrastructure.Services;
+using BB84.SAU.Infrastructure.Extensions;
+using BB84.SAU.Infrastructure.Interfaces.Provider;
+using BB84.SAU.Infrastructure.Provider;
+using BB84.SAU.Infrastructure.Services;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-
-using BB84.SAU.Application.Interfaces.Infrastructure.Services;
-using BB84.SAU.Infrastructure.Extensions;
-using BB84.SAU.Infrastructure.Services;
 
 namespace BB84.SAU.Infrastructure.Installer;
 
@@ -26,6 +28,8 @@ public static class DependencyInjection
 	{
 		services.RegisterLoggerService(environment);
 
+		services.TryAddSingleton<IFileProvider, FileProvider>();
+		services.TryAddSingleton<ISteamWorksProvider, SteamWorksProvider>();
 		services.TryAddSingleton<ISteamApiService, SteamApiService>();
 
 		return services;
