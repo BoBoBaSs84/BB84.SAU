@@ -29,7 +29,7 @@ public interface ISteamApiService
 	/// </remarks>
 	/// <param name="appId">The Steamworks API will not initialize if it does not know the App ID of your game.</param>
 	/// <returns>True, if the api is initialized, otherwise false.</returns>
-	bool Init(int appId);
+	bool Initialize(int appId);
 
 	/// <summary>
 	/// When done using the Steamworks API you should call <see cref="Shutdown"/> to release the resources used
@@ -65,7 +65,7 @@ public interface ISteamApiService
 	/// You must always call this first to get the initial status of stats and achievements.
 	/// </remarks>
 	/// <returns>True, if the request was successful, otherwise false.</returns>
-	bool RequestCurrentStats();
+	bool RequestStats();
 
 	/// <summary>
 	/// Send the changed stats and achievements data to the server for permanent storage.
