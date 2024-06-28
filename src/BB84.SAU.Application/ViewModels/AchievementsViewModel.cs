@@ -203,10 +203,10 @@ public sealed class AchievementsViewModel : ViewModelBase
 		if (propertyName == nameof(Model))
 		{
 			if (_steamApiService.Initialized.IsFalse())
-				_steamApiService.Init(Model.Id);
+				_steamApiService.Initialize(Model.Id);
 
 			if (_steamApiService.StatsRequested.IsFalse())
-				_steamApiService.RequestCurrentStats();
+				_steamApiService.RequestStats();
 		}
 
 		if (propertyName == nameof(SelectedAchievement) && SelectedAchievement is not null)
