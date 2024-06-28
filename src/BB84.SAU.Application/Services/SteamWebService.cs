@@ -2,13 +2,12 @@
 using System.Text.Json;
 
 using BB84.Extensions;
-
-using Microsoft.Extensions.Logging;
-
 using BB84.SAU.Application.Interfaces.Application.Provider;
 using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Domain.Models;
+
+using Microsoft.Extensions.Logging;
 
 using HC = BB84.SAU.Application.Common.ApplicationConstants.HttpClients;
 
@@ -23,10 +22,6 @@ namespace BB84.SAU.Application.Services;
 /// <param name="httpClientFactory">The http client factory instance to use.</param>
 internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerService, INotificationService notificationService, IDateTimeProvider dateTimeProvider, IHttpClientFactory httpClientFactory) : ISteamWebService
 {
-	private readonly ILoggerService<SteamWebService> _loggerService = loggerService;
-	private readonly INotificationService _notificationService = notificationService;
-	private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
-
 	private static readonly Action<ILogger, Exception?> LogException =
 		LoggerMessage.Define(LogLevel.Error, 0, "Exception occured.");
 
@@ -38,13 +33,14 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 		List<AchievementModel> achievements = [];
 		try
 		{
-			HttpClient httpClient = _httpClientFactory.CreateClient(nameof(HC.SteamPowered));
+			HttpClient httpClient = httpClientFactory.CreateClient(nameof(HC.SteamPowered));
 			string requestUri = HC.SteamPowered.GetSchemaForGame.FormatInvariant(apiKey, appId);
 			using HttpResponseMessage responseMessage = await httpClient.GetAsync(requestUri, cancellationToken);
 
 			if (!responseMessage.IsSuccessStatusCode)
 			{
-				_loggerService.Log(LogExceptionWithParams, responseMessage.StatusCode, null);
+				loggerService.Log(LogExceptionWithParams, responseMessage.StatusCode, null);
+				notificationService.Send($"{responseMessage.StatusCode} - {responseMessage.ReasonPhrase}");
 				return achievements;
 			}
 
@@ -73,14 +69,14 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 				achievements.Add(new(id, name, description, hidden, icon, iconGray));
 			}
 
-			_notificationService.Send($"Loaded {achievements.Count} achievements.");
+			notificationService.Send($"Loaded {achievements.Count} achievements.");
 
 			return achievements;
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogExceptionWithParams, appId, ex);
-			_notificationService.Send(ex.Message);
+			loggerService.Log(LogExceptionWithParams, appId, ex);
+			notificationService.Send(ex.Message);
 			return achievements;
 		}
 	}
@@ -90,17 +86,18 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 		List<GameModel> games = [];
 		try
 		{
-			HttpClient httpClient = _httpClientFactory.CreateClient(nameof(HC.SteamPowered));
+			HttpClient httpClient = httpClientFactory.CreateClient(nameof(HC.SteamPowered));
 			string requestUri = HC.SteamPowered.GetOwnedGames.FormatInvariant(apiKey, steamId);
-			using HttpResponseMessage gamesResponseMessage = await httpClient.GetAsync(requestUri, cancellationToken);
+			using HttpResponseMessage responseMessage = await httpClient.GetAsync(requestUri, cancellationToken);
 
-			if (!gamesResponseMessage.IsSuccessStatusCode)
+			if (!responseMessage.IsSuccessStatusCode)
 			{
-				_loggerService.Log(LogExceptionWithParams, gamesResponseMessage.StatusCode, null);
+				loggerService.Log(LogExceptionWithParams, responseMessage.StatusCode, null);
+				notificationService.Send($"{responseMessage.StatusCode} - {responseMessage.ReasonPhrase}");
 				return games;
 			}
 
-			string jsonContent = await gamesResponseMessage.Content.ReadAsStringAsync(cancellationToken)
+			string jsonContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken)
 				.ConfigureAwait(false);
 
 			JsonElement.ArrayEnumerator jsonArray = JsonSerializer.Deserialize<JsonElement>(jsonContent)
@@ -108,7 +105,7 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 				.GetProperty("games")
 				.EnumerateArray();
 
-			foreach (var jsonElement in jsonArray)
+			foreach (JsonElement jsonElement in jsonArray)
 			{
 				int id = jsonElement.GetProperty("appid").GetInt32();
 				string title = jsonElement.GetProperty("name").ToString();
@@ -116,14 +113,14 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 				games.Add(new(id, title));
 			}
 
-			_notificationService.Send($"Loaded {games.Count} games.");
+			notificationService.Send($"Loaded {games.Count} games.");
 
 			return games;
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogException, ex);
-			_notificationService.Send(ex.Message);
+			loggerService.Log(LogException, ex);
+			notificationService.Send(ex.Message);
 			return games;
 		}
 	}
@@ -132,13 +129,14 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 	{
 		try
 		{
-			HttpClient httpClient = _httpClientFactory.CreateClient(nameof(HC.SteamStore));
+			HttpClient httpClient = httpClientFactory.CreateClient(nameof(HC.SteamStore));
 			string requestUri = HC.SteamStore.GetAppDetails.FormatInvariant(appId);
 			using HttpResponseMessage responseMessage = await httpClient.GetAsync(requestUri, cancellationToken);
 
 			if (!responseMessage.IsSuccessStatusCode)
 			{
-				_loggerService.Log(LogExceptionWithParams, responseMessage.StatusCode, null);
+				loggerService.Log(LogExceptionWithParams, responseMessage.StatusCode, null);
+				notificationService.Send($"{responseMessage.StatusCode} - {responseMessage.ReasonPhrase}");
 				return default;
 			}
 
@@ -164,8 +162,8 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogExceptionWithParams, appId, ex);
-			_notificationService.Send(ex.Message);
+			loggerService.Log(LogExceptionWithParams, appId, ex);
+			notificationService.Send(ex.Message);
 			return default;
 		}
 	}
@@ -174,13 +172,14 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 	{
 		try
 		{
-			HttpClient httpClient = _httpClientFactory.CreateClient(nameof(HC.SteamPowered));
+			HttpClient httpClient = httpClientFactory.CreateClient(nameof(HC.SteamPowered));
 			string requestUri = HC.SteamPowered.GetPlayerSummaries.FormatInvariant(apiKey, steamId);
 			using HttpResponseMessage responseMessage = await httpClient.GetAsync(requestUri, cancellationToken);
 
 			if (!responseMessage.IsSuccessStatusCode)
 			{
-				_loggerService.Log(LogExceptionWithParams, responseMessage.StatusCode, null);
+				loggerService.Log(LogExceptionWithParams, responseMessage.StatusCode, null);
+				notificationService.Send($"{responseMessage.StatusCode} - {responseMessage.ReasonPhrase}");
 				return default;
 			}
 
@@ -205,8 +204,8 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 		}
 		catch (Exception ex)
 		{
-			_loggerService.Log(LogException, ex);
-			_notificationService.Send(ex.Message);
+			loggerService.Log(LogException, ex);
+			notificationService.Send(ex.Message);
 			return default;
 		}
 	}
