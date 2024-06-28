@@ -28,7 +28,7 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 	public bool Initialized => AppId is not null;
 	public bool StatsRequested { get; private set; }
 
-	public bool Init(int appId)
+	public bool Initialize(int appId)
 	{
 		try
 		{
@@ -49,7 +49,7 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 		}
 	}
 
-	public bool RequestCurrentStats()
+	public bool RequestStats()
 	{
 		try
 		{
