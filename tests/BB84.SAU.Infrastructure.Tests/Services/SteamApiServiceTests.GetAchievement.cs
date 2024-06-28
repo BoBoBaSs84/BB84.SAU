@@ -1,9 +1,12 @@
-﻿using BB84.SAU.Infrastructure.Services;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using BB84.SAU.Infrastructure.Services;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BB84.SAU.Infrastructure.Tests.Services;
 
+[SuppressMessage("Style", "IDE0058", Justification = "Not relevant here, unit testing.")]
 public sealed partial class SteamApiServiceTests
 {
 	[TestMethod]
@@ -31,8 +34,8 @@ public sealed partial class SteamApiServiceTests
 		_steamWorksProviderMock.Setup(x => x.Init()).Returns(true);
 		_steamWorksProviderMock.Setup(x => x.RequestCurrentStats()).Returns(true);
 		_steamWorksProviderMock.Setup(x => x.GetAchievementAndUnlockTime(AchievementName, out achieved, out unlockTime)).Returns(true);
-		service.Init(AppId);
-		service.RequestCurrentStats();
+		service.Initialize(AppId);
+		service.RequestStats();
 
 		(bool Achieved, DateTime? UnlockTime) result = service.GetAchievement(AchievementName);
 
@@ -53,9 +56,8 @@ public sealed partial class SteamApiServiceTests
 		_steamWorksProviderMock.Setup(x => x.Init()).Returns(true);
 		_steamWorksProviderMock.Setup(x => x.RequestCurrentStats()).Returns(true);
 		_steamWorksProviderMock.Setup(x => x.GetAchievementAndUnlockTime(AchievementName, out achieved, out unlockTime));
-
-		service.Init(AppId);
-		service.RequestCurrentStats();
+		service.Initialize(AppId);
+		service.RequestStats();
 
 		(bool Achieved, DateTime? UnlockTime) result = service.GetAchievement(AchievementName);
 

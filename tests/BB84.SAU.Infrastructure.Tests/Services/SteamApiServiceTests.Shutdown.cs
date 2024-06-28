@@ -1,9 +1,12 @@
-﻿using BB84.SAU.Infrastructure.Services;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using BB84.SAU.Infrastructure.Services;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BB84.SAU.Infrastructure.Tests.Services;
 
+[SuppressMessage("Style", "IDE0058", Justification = "Not relevant here, unit testing.")]
 public sealed partial class SteamApiServiceTests
 {
 	[TestMethod]
@@ -25,7 +28,7 @@ public sealed partial class SteamApiServiceTests
 	{
 		SteamApiService service = CreateMockedService();
 		_steamWorksProviderMock.Setup(x => x.Init()).Returns(true);
-		service.Init(1);
+		service.Initialize(AppId);
 
 		service.Shutdown();
 
