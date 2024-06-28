@@ -15,6 +15,7 @@ namespace BB84.SAU.Application.Tests.ViewModels;
 [TestClass]
 public sealed partial class GamesViewModelTests : ApplicationTestBase
 {
+	private static readonly SteamSettings SteamSettings = new() { Id = 0, ApiKey = "TestKey" };
 	private Mock<IDateTimeProvider> _dateTimeProviderMock = new();
 	private Mock<INavigationService> _navigationServiceMock = new();
 	private Mock<ISteamApiService> _steamApiServiceMock = new();
@@ -44,6 +45,7 @@ public sealed partial class GamesViewModelTests : ApplicationTestBase
 		_steamApiServiceMock = new();
 		_steamWebServiceMock = new();
 		_optionsMock = new();
+		_optionsMock.Setup(x => x.Value).Returns(SteamSettings);
 
 		AchievementsViewModel achievementsViewModel =
 			new(_steamApiServiceMock.Object, _steamWebServiceMock.Object, _optionsMock.Object, _dateTimeProviderMock.Object);
