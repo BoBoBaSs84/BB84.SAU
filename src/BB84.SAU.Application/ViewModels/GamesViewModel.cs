@@ -4,13 +4,12 @@ using BB84.Extensions;
 using BB84.Notifications.Attributes;
 using BB84.Notifications.Commands;
 using BB84.Notifications.Interfaces.Commands;
-
-using Microsoft.Extensions.Options;
-
 using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.ViewModels.Base;
 using BB84.SAU.Domain.Models;
 using BB84.SAU.Domain.Settings;
+
+using Microsoft.Extensions.Options;
 
 namespace BB84.SAU.Application.ViewModels;
 
@@ -94,8 +93,8 @@ public sealed class GamesViewModel : ViewModelBase
 	/// <summary>
 	/// The command to select the game.
 	/// </summary>
-	public IActionCommand<GameDetailModel?> SelectGameCommand
-		=> new ActionCommand<GameDetailModel?>(SelectGame, CanSelectGame);
+	public IActionCommand<GameDetailModel> SelectGameCommand
+		=> new ActionCommand<GameDetailModel>(SelectGame, CanSelectGame);
 
 	/// <summary>
 	/// Indicates if the select game button is visible.
@@ -106,16 +105,13 @@ public sealed class GamesViewModel : ViewModelBase
 	private bool CanLoadGames()
 		=> Model.LastUpdate is not null && GamesAreLoading.IsFalse();
 
-	private bool CanSelectGame(GameDetailModel? model)
+	private bool CanSelectGame(GameDetailModel model)
 		=> model is not null && model.LastUpdate is not null;
 
-	private void SelectGame(GameDetailModel? model)
+	private void SelectGame(GameDetailModel model)
 	{
-		if (model is not null)
-		{
-			_achievementsViewModel.Model = model;
-			_navigationService.NavigateTo<AchievementsViewModel>();
-		}
+		_achievementsViewModel.Model = model;
+		_navigationService.NavigateTo<AchievementsViewModel>();
 	}
 
 	private async Task LoadGames()

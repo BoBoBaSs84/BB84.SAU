@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using BB84.SAU.Domain.Models;
+﻿using BB84.SAU.Domain.Models;
 
 namespace BB84.SAU.Domain.Tests.Models;
 
@@ -28,7 +26,7 @@ public class GameModelTests
 		GameModel model = new(0, string.Empty);
 		int id = 1;
 		string title = "UnitTest";
-		
+
 		model.Id = id;
 		model.Title = title;
 

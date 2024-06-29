@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using BB84.SAU.Domain.Models;
+﻿using BB84.SAU.Domain.Models;
 
 namespace BB84.SAU.Domain.Tests.Models;
 
@@ -21,5 +19,7 @@ public sealed class AboutModelTests
 		Assert.IsNotNull(model.Comments);
 		Assert.IsNotNull(model.Company);
 		Assert.IsNotNull(model.Copyright);
+		Assert.IsNotNull(model.FrameworkName);
+		Assert.IsNotNull(model.Repository);
 	}
 }

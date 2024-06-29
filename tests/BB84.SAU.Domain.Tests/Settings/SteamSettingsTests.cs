@@ -1,7 +1,4 @@
 ﻿using BB84.Extensions;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using BB84.SAU.Domain.Settings;
 
 namespace BB84.SAU.Domain.Tests.Settings;

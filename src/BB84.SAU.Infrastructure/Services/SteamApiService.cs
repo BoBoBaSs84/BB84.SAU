@@ -76,9 +76,10 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 				throw new SteamSdkException("Stats have not been requested!");
 
 			bool result = steamWorksProvider.GetAchievementAndUnlockTime(name, out bool achieved, out uint unlockTime);
+			
 			DateTime? dateTime = achieved
 				? DateTimeOffset.FromUnixTimeSeconds(unlockTime).LocalDateTime
-				: default;
+				: null;
 
 			return (achieved, dateTime);
 		}

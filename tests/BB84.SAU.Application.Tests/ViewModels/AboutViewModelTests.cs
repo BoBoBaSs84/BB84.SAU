@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using BB84.SAU.Application.ViewModels;
+﻿using BB84.SAU.Application.ViewModels;
 using BB84.SAU.Domain.Models;
 
 namespace BB84.SAU.Application.Tests.ViewModels;

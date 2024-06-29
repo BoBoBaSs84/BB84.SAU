@@ -1,12 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using BB84.SAU.Infrastructure.Installer;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
-
-using BB84.SAU.Infrastructure.Installer;
 
 namespace BB84.SAU.Infrastructure.Tests.Installer;
 

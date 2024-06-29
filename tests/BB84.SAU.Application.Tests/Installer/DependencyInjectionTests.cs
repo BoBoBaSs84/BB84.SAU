@@ -1,9 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using BB84.SAU.Application.Installer;
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using BB84.SAU.Application.Installer;
 
 namespace BB84.SAU.Application.Tests.Installer;
 
