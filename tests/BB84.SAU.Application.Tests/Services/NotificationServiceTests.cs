@@ -6,13 +6,28 @@ namespace BB84.SAU.Application.Tests.Services;
 public sealed class NotificationServiceTests
 {
 	[TestMethod]
-	public void SendTest()
+	[TestCategory("Methods")]
+	public void SendShouldRaiseNotificationReceivedEventHandler()
 	{
 		bool notificationReceived = false;
 		NotificationService service = new();
 		service.NotificationReceived += (s, e) => notificationReceived = true;
 
-		service.Send("Unit test message.");
+		service.Send(string.Empty);
+
+		Assert.IsTrue(notificationReceived);
+	}
+
+	[TestMethod]
+	[TestCategory("Methods")]
+	public async Task SendAsyncShouldNotRaiseAsyncNotificationReceivedEventHandler()
+	{
+		bool notificationReceived = false;
+		NotificationService service = new();
+		service.AsyncNotificationReceived += (s, e) => Task.Run(() => notificationReceived = true);
+
+		await service.SendAsync(string.Empty)
+			.ConfigureAwait(true);
 
 		Assert.IsTrue(notificationReceived);
 	}

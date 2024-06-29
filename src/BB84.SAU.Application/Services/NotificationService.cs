@@ -12,7 +12,10 @@ internal sealed class NotificationService : INotificationService
 	public event NotificationEventHandler? NotificationReceived;
 
 	public void Send(string message)
-		=> NotificationReceived?.Invoke(this, message);
+	{
+		if (NotificationReceived is not null)
+			NotificationReceived.Invoke(this, message);
+	}
 
 	public async Task SendAsync(string message)
 	{
