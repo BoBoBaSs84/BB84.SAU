@@ -18,10 +18,17 @@ public interface INotificationService
 	event NotificationEventHandler? NotificationReceived;
 
 	/// <summary>
-	/// Sends a <paramref name="message"/> to all the subscribers.
+	/// Sends a synchronous <paramref name="message"/> to all the subscribers.
 	/// </summary>
 	/// <param name="message">The message to send.</param>
 	void Send(string message);
+
+	/// <summary>
+	/// Sends a asynchronous <paramref name="message"/> to all the subscribers.
+	/// </summary>
+	/// <param name="message">The message to send.</param>
+	/// <returns><see cref="Task"/></returns>
+	Task SendAsync(string message);
 }
 
 /// <summary>

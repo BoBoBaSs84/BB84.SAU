@@ -29,17 +29,18 @@ public partial class MainWindow : Window
 		InitializeComponent();
 
 		_notificationService = notificationService;
-		_notificationService.AsyncNotificationReceived += async (s, e) => await OnMessageReceived(e);
+		_notificationService.AsyncNotificationReceived += async (sender, message) => await OnAsyncNotificationReceived(message);
 
 		_aboutViewModel = aboutViewModel;
 		DataContext = _mainViewModel = mainViewModel;
 	}
 
-	private async Task OnMessageReceived(string message)
+	private async Task OnAsyncNotificationReceived(string message)
 	{
 		StatusBarItem.Content = message;
 
-		await Task.Delay(2500);
+		await Task.Delay(2500)
+			.ConfigureAwait(true);
 
 		StatusBarItem.Content = string.Empty;
 	}
