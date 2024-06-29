@@ -46,7 +46,7 @@ public sealed partial class SteamApiServiceTests
 	[TestCategory("Methods")]
 	public void GetAchievementShouldReturnValuesWhenSteamWorksProviderReturnedValues()
 	{
-		uint unlockTime = 946681200;
+		uint unlockTime = 0;
 		bool achieved = true;
 		SteamApiService service = CreateMockedService();
 		_steamWorksProviderMock.Setup(x => x.Init()).Returns(true);
@@ -58,7 +58,7 @@ public sealed partial class SteamApiServiceTests
 		(bool Achieved, DateTime? UnlockTime) result = service.GetAchievement(AchievementName);
 
 		Assert.IsTrue(result.Achieved);
-		Assert.AreEqual(new DateTime(2000, 1, 1), result.UnlockTime);
+		Assert.AreEqual(DateTimeOffset.FromUnixTimeSeconds(unlockTime).LocalDateTime, result.UnlockTime);
 		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
 		Assert.AreEqual(0, _notificationServiceMock.Invocations.Count);
 		Assert.AreEqual(3, _steamWorksProviderMock.Invocations.Count);
