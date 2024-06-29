@@ -158,6 +158,8 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 			if (jsonElement.TryGetProperty("header_image", out value))
 				imageUrl = value.GetString();
 
+			notificationService.Send($"Details for {title} loaded.");
+
 			return new(id, title, description, imageUrl, dateTimeProvider.Now);
 		}
 		catch (Exception ex)
@@ -199,6 +201,8 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 
 			DateTime created = DateTimeOffset.FromUnixTimeMilliseconds(jsonElement.GetProperty("timecreated").GetInt64()).LocalDateTime;
 			DateTime lastLogOff = DateTimeOffset.FromUnixTimeMilliseconds(jsonElement.GetProperty("lastlogoff").GetInt64()).LocalDateTime;
+
+			notificationService.Send($"User data for {name} loaded.");
 
 			return new(name, imageUrl, profileUrl, created, lastLogOff, dateTimeProvider.Now);
 		}
