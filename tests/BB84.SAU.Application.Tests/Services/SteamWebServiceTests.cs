@@ -16,9 +16,11 @@ namespace BB84.SAU.Application.Tests.Services;
 [TestClass]
 public sealed partial class SteamWebServiceTests
 {	
-	private const int APPID = 1;
+	private const int APPID = int.MaxValue;
 	private const string APIKEY = "UnitTestKey";
+	private const long STEAMID = long.MaxValue;
 	private const string AchievmentsResponse = @"{""game"":{""gameName"":""MyTestGame"",""gameVersion"":""1"",""availableGameStats"":{""achievements"":[{""name"":""Achievement"",""defaultvalue"":0,""displayName"":""Achievement"",""hidden"":0,""description"":""Achievement"",""icon"":""https://www.unittest.dev/1.jpg"",""icongray"":""https://www.unittest.dev/2.jpg""}]}}}";
+	private const string GamesResponse = @"{""response"":{""games"":[{""appid"": 1,""name"":""UnitTest""}]}}";
 	
 	private Mock<ILoggerService<SteamWebService>> _loggerServiceMock = new();
 	private Mock<INotificationService> _notificationServiceMock = new();
