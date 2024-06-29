@@ -3,8 +3,6 @@ using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Infrastructure.Interfaces.Provider;
 using BB84.SAU.Infrastructure.Services;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Moq;
 
 namespace BB84.SAU.Infrastructure.Tests.Services;

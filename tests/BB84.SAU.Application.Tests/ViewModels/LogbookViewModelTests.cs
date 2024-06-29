@@ -1,10 +1,5 @@
-﻿using BB84.SAU.Application.Interfaces.Application.Services;
-using BB84.SAU.Application.Services;
+﻿using BB84.SAU.Application.Services;
 using BB84.SAU.Application.ViewModels;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using Moq;
 
 namespace BB84.SAU.Application.Tests.ViewModels;
 

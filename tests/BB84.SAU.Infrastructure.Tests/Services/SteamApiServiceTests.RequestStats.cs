@@ -1,9 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-using BB84.SAU.Domain.Exceptions;
+﻿using BB84.SAU.Domain.Exceptions;
 using BB84.SAU.Infrastructure.Services;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BB84.SAU.Infrastructure.Tests.Services;
 

@@ -1,8 +1,6 @@
 ﻿using BB84.SAU.Application.ViewModels;
 using BB84.SAU.Domain.Models;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace BB84.SAU.Application.Tests.ViewModels;
 
 public sealed partial class GamesViewModelTests

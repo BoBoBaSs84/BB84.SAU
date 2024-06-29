@@ -6,7 +6,6 @@ using BB84.SAU.Domain.Models;
 using BB84.SAU.Domain.Settings;
 
 using Microsoft.Extensions.Options;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 
@@ -45,7 +44,7 @@ public sealed partial class GamesViewModelTests : ApplicationTestBase
 		_steamApiServiceMock = new();
 		_steamWebServiceMock = new();
 		_optionsMock = new();
-		_optionsMock.Setup(x => x.Value).Returns(SteamSettings);
+		_ = _optionsMock.Setup(x => x.Value).Returns(SteamSettings);
 
 		AchievementsViewModel achievementsViewModel =
 			new(_steamApiServiceMock.Object, _steamWebServiceMock.Object, _optionsMock.Object, _dateTimeProviderMock.Object);

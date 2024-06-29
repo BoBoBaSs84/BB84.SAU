@@ -61,11 +61,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
-		<PackageReference Include="coverlet.collector" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" />
-		<PackageReference Include="Moq" />
-		<PackageReference Include="MSTest.TestAdapter" />
-		<PackageReference Include="MSTest.TestFramework" />
+		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+		<Using Include="System.Diagnostics" />
+		<Using Include="System.Diagnostics.CodeAnalysis" />
 	</ItemGroup>	
 
 	<ItemGroup>

@@ -2,8 +2,6 @@
 using BB84.SAU.Domain.Models;
 using BB84.SAU.Domain.Settings;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Moq;
 
 namespace BB84.SAU.Application.Tests.ViewModels;
@@ -19,9 +17,9 @@ public sealed partial class GamesViewModelTests
 		GameDetailModel game = new(appId, appTitle);
 		List<GameModel> games = [new(appId, appTitle)];
 		GamesViewModel viewModel = CreateViewModelMock();
-		_optionsMock.Setup(x => x.Value).Returns(SteamSettings);
-		_steamWebServiceMock.Setup(x => x.GetGames(SteamSettings.Id, SteamSettings.ApiKey, default)).ReturnsAsync(games);
-		_steamWebServiceMock.Setup(x => x.GetGameDetails(appId, default)).ReturnsAsync(game);
+		_ = _optionsMock.Setup(x => x.Value).Returns(SteamSettings);
+		_ = _steamWebServiceMock.Setup(x => x.GetGames(SteamSettings.Id, SteamSettings.ApiKey, default)).ReturnsAsync(games);
+		_ = _steamWebServiceMock.Setup(x => x.GetGameDetails(appId, default)).ReturnsAsync(game);
 		viewModel.Model.LastUpdate = DateTime.MinValue;
 
 		await viewModel.LoadGamesCommand.ExecuteAsync()
@@ -34,7 +32,7 @@ public sealed partial class GamesViewModelTests
 	[TestCategory("Commands")]
 	public async Task LoadGamesCommandShouldNotLoadGamesWhenLastUpdateIsNull()
 	{
-		GamesViewModel viewModel = CreateViewModelMock();		
+		GamesViewModel viewModel = CreateViewModelMock();
 		viewModel.Model.LastUpdate = null;
 
 		await viewModel.LoadGamesCommand.ExecuteAsync()

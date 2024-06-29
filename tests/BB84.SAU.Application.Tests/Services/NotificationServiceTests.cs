@@ -1,7 +1,5 @@
 ﻿using BB84.SAU.Application.Services;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace BB84.SAU.Application.Tests.Services;
 
 [TestClass]

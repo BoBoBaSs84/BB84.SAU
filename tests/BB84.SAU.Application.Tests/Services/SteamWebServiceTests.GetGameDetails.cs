@@ -1,10 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Net;
+﻿using System.Net;
 
 using BB84.SAU.Application.Services;
 using BB84.SAU.Domain.Models;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 

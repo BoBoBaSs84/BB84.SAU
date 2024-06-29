@@ -6,8 +6,6 @@ using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Application.Services;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Moq;
 using Moq.Protected;
 

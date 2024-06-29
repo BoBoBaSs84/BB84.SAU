@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace BB84.SAU.Application.Tests;
+﻿namespace BB84.SAU.Application.Tests;
 
 [TestClass]
 public abstract class ApplicationTestBase

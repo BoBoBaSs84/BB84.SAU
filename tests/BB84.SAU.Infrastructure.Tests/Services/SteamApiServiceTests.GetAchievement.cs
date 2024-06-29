@@ -1,8 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-using BB84.SAU.Infrastructure.Services;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BB84.SAU.Infrastructure.Services;
 
 namespace BB84.SAU.Infrastructure.Tests.Services;
 

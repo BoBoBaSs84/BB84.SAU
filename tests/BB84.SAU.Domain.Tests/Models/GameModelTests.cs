@@ -1,7 +1,5 @@
 ﻿using BB84.SAU.Domain.Models;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace BB84.SAU.Domain.Tests.Models;
 
 [TestClass()]

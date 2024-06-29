@@ -3,7 +3,6 @@ using BB84.SAU.Application.ViewModels;
 using BB84.SAU.Domain.Settings;
 
 using Microsoft.Extensions.Options;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Moq;
 
