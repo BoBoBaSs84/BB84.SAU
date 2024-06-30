@@ -17,7 +17,7 @@ public sealed partial class SteamWebServiceTests
 		SteamWebService service = CreateMockedInstance();
 		_httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>())).Throws<HttpRequestException>();
 
-		UserDataModel? result = await service.GetUserProfile(STEAMID, APIKEY)
+		UserDataModel? result = await service.GetUserDataAsync(STEAMID, APIKEY)
 			.ConfigureAwait(false);
 
 		Assert.IsNull(result);
@@ -33,7 +33,7 @@ public sealed partial class SteamWebServiceTests
 		_httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
 			.Returns(CreateMockedClient(HttpStatusCode.NotFound));
 
-		UserDataModel? result = await service.GetUserProfile(STEAMID, APIKEY)
+		UserDataModel? result = await service.GetUserDataAsync(STEAMID, APIKEY)
 			.ConfigureAwait(false);
 
 		Assert.IsNull(result);
@@ -51,7 +51,7 @@ public sealed partial class SteamWebServiceTests
 		_httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
 			.Returns(CreateMockedClient(HttpStatusCode.OK, UserDataResponse));
 
-		UserDataModel? result = await service.GetUserProfile(STEAMID, APIKEY)
+		UserDataModel? result = await service.GetUserDataAsync(STEAMID, APIKEY)
 			.ConfigureAwait(false);
 
 		Assert.IsNotNull(result);

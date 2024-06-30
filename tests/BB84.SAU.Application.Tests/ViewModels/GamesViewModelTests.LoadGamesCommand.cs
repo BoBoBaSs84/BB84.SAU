@@ -18,8 +18,8 @@ public sealed partial class GamesViewModelTests
 		List<GameModel> games = [new(appId, appTitle)];
 		GamesViewModel viewModel = CreateViewModelMock();
 		_ = _optionsMock.Setup(x => x.Value).Returns(SteamSettings);
-		_ = _steamWebServiceMock.Setup(x => x.GetGames(SteamSettings.Id, SteamSettings.ApiKey, default)).ReturnsAsync(games);
-		_ = _steamWebServiceMock.Setup(x => x.GetGameDetails(appId, default)).ReturnsAsync(game);
+		_ = _steamWebServiceMock.Setup(x => x.GetGamesAsync(SteamSettings.Id, SteamSettings.ApiKey, default)).ReturnsAsync(games);
+		_ = _steamWebServiceMock.Setup(x => x.GetGameDetailsAsync(appId, default)).ReturnsAsync(game);
 		viewModel.Model.LastUpdate = DateTime.MinValue;
 
 		await viewModel.LoadGamesCommand.ExecuteAsync()

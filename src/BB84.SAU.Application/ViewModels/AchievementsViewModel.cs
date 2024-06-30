@@ -136,7 +136,7 @@ public sealed class AchievementsViewModel : ViewModelBase
 		{
 			AchievementsAreLoading = true;
 
-			IEnumerable<AchievementModel> achievements = await _steamWebService.GetAchievements(Model.Id, _steamSettings.ApiKey)
+			IEnumerable<AchievementModel> achievements = await _steamWebService.GetAchievementsAsync(Model.Id, _steamSettings.ApiKey)
 				.ConfigureAwait(true);
 
 			foreach (AchievementModel achievement in achievements)

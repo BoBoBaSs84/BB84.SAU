@@ -88,7 +88,7 @@ public sealed class UserDataViewModel : ViewModelBase
 		{
 			IsUserDataLoading = true;
 
-			UserDataModel? loadedModel = await _steamWebService.GetUserProfile(_steamSettings.Id, _steamSettings.ApiKey)
+			UserDataModel? loadedModel = await _steamWebService.GetUserDataAsync(_steamSettings.Id, _steamSettings.ApiKey)
 				.ConfigureAwait(true);
 
 			if (loadedModel is null)
