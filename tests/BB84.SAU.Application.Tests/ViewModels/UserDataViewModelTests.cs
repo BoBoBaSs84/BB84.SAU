@@ -42,7 +42,7 @@ public sealed class UserDataViewModelTests : ApplicationTestBase
 		UserDataModel userDataModel =
 			new("UnitTest", TestImageUrl, "UnitTestUrl", DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
 		Mock<ISteamWebService> steamWebApiServiceMock = new();
-		_ = steamWebApiServiceMock.Setup(x => x.GetUserProfile(id, apiKey, default).Result).Returns(userDataModel);
+		_ = steamWebApiServiceMock.Setup(x => x.GetUserDataAsync(id, apiKey, default).Result).Returns(userDataModel);
 		Mock<IOptions<SteamSettings>> optionsMock = new();
 		_ = optionsMock.Setup(x => x.Value).Returns(new SteamSettings() { Id = id, ApiKey = apiKey });
 		UserDataViewModel viewModel = new(steamWebApiServiceMock.Object, optionsMock.Object, new());
@@ -63,7 +63,7 @@ public sealed class UserDataViewModelTests : ApplicationTestBase
 		UserDataModel userDataModel =
 			new("UnitTest", TestImageUrl, "UnitTestUrl", DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
 		Mock<ISteamWebService> steamWebApiServiceMock = new();
-		_ = steamWebApiServiceMock.Setup(x => x.GetUserProfile(id, apiKey, default).Result);
+		_ = steamWebApiServiceMock.Setup(x => x.GetUserDataAsync(id, apiKey, default).Result);
 		Mock<IOptions<SteamSettings>> optionsMock = new();
 		_ = optionsMock.Setup(x => x.Value).Returns(new SteamSettings() { Id = id, ApiKey = apiKey });
 		UserDataViewModel viewModel = new(steamWebApiServiceMock.Object, optionsMock.Object, new());

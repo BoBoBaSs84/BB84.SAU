@@ -17,7 +17,7 @@ public sealed partial class SteamWebServiceTests
 		SteamWebService service = CreateMockedInstance();
 		_httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>())).Throws<HttpRequestException>();
 
-		IEnumerable<AchievementModel> result = await service.GetAchievements(APPID, APIKEY)
+		IEnumerable<AchievementModel> result = await service.GetAchievementsAsync(APPID, APIKEY)
 			.ConfigureAwait(false);
 
 		Assert.IsFalse(result.Any());
@@ -33,7 +33,7 @@ public sealed partial class SteamWebServiceTests
 		_httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
 			.Returns(CreateMockedClient(HttpStatusCode.NotFound));
 
-		IEnumerable<AchievementModel> result = await service.GetAchievements(APPID, APIKEY)
+		IEnumerable<AchievementModel> result = await service.GetAchievementsAsync(APPID, APIKEY)
 			.ConfigureAwait(false);
 
 		Assert.IsFalse(result.Any());
@@ -51,7 +51,7 @@ public sealed partial class SteamWebServiceTests
 		_httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
 			.Returns(CreateMockedClient(HttpStatusCode.OK, AchievmentsResponse));
 
-		IEnumerable<AchievementModel> result = await service.GetAchievements(APPID, APIKEY)
+		IEnumerable<AchievementModel> result = await service.GetAchievementsAsync(APPID, APIKEY)
 			.ConfigureAwait(false);
 
 		Assert.IsTrue(result.Any());

@@ -17,7 +17,7 @@ public sealed partial class SteamWebServiceTests
 		SteamWebService service = CreateMockedInstance();
 		_httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>())).Throws<HttpRequestException>();
 
-		IEnumerable<GameModel> result = await service.GetGames(STEAMID, APIKEY)
+		IEnumerable<GameModel> result = await service.GetGamesAsync(STEAMID, APIKEY)
 			.ConfigureAwait(false);
 
 		Assert.IsFalse(result.Any());
@@ -33,7 +33,7 @@ public sealed partial class SteamWebServiceTests
 		_httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
 			.Returns(CreateMockedClient(HttpStatusCode.NotFound));
 
-		IEnumerable<GameModel> result = await service.GetGames(STEAMID, APIKEY)
+		IEnumerable<GameModel> result = await service.GetGamesAsync(STEAMID, APIKEY)
 			.ConfigureAwait(false);
 
 		Assert.IsFalse(result.Any());
@@ -51,7 +51,7 @@ public sealed partial class SteamWebServiceTests
 		_httpClientFactoryMock.Setup(x => x.CreateClient(It.IsAny<string>()))
 			.Returns(CreateMockedClient(HttpStatusCode.OK, GamesResponse));
 
-		IEnumerable<GameModel> result = await service.GetGames(STEAMID, APIKEY)
+		IEnumerable<GameModel> result = await service.GetGamesAsync(STEAMID, APIKEY)
 			.ConfigureAwait(false);
 
 		Assert.IsTrue(result.Any());

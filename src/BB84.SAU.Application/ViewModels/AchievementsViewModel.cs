@@ -136,20 +136,20 @@ public sealed class AchievementsViewModel : ViewModelBase
 		{
 			AchievementsAreLoading = true;
 
-			IEnumerable<AchievementModel> achievements = await _steamWebService.GetAchievements(Model.Id, _steamSettings.ApiKey)
+			IEnumerable<AchievementModel> achievementsData = await _steamWebService.GetAchievementsAsync(Model.Id, _steamSettings.ApiKey)
 				.ConfigureAwait(true);
 
-			foreach (AchievementModel achievement in achievements)
+			foreach (AchievementModel achievementData in achievementsData)
 			{
-				(bool achieved, DateTime? unlockTime) = _steamApiService.GetAchievement(achievement.Id);
+				(bool achieved, DateTime? unlockTime) = _steamApiService.GetAchievement(achievementData.Id);
 
 				if (achieved)
 				{
-					achievement.Unlocked = achieved;
-					achievement.UnlockedTime = unlockTime;
+					achievementData.Unlocked = achieved;
+					achievementData.UnlockedTime = unlockTime;
 				}
 
-				Model.Achievements.Add(achievement);
+				Model.Achievements.Add(achievementData);
 			}
 		}
 		finally

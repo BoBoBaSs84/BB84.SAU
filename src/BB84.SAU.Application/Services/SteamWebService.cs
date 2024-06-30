@@ -28,7 +28,7 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 	private static readonly Action<ILogger, object, Exception?> LogExceptionWithParams =
 		LoggerMessage.Define<object>(LogLevel.Error, 0, "Exception occured. Params = {Parameters}");
 
-	public async Task<IEnumerable<AchievementModel>> GetAchievements(int appId, string apiKey, CancellationToken cancellationToken = default)
+	public async Task<IEnumerable<AchievementModel>> GetAchievementsAsync(int appId, string apiKey, CancellationToken cancellationToken = default)
 	{
 		List<AchievementModel> achievements = [];
 		try
@@ -81,7 +81,7 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 		}
 	}
 
-	public async Task<IEnumerable<GameModel>> GetGames(long steamId, string apiKey, CancellationToken cancellationToken = default)
+	public async Task<IEnumerable<GameModel>> GetGamesAsync(long steamId, string apiKey, CancellationToken cancellationToken = default)
 	{
 		List<GameModel> games = [];
 		try
@@ -125,7 +125,7 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 		}
 	}
 
-	public async Task<GameDetailModel?> GetGameDetails(int appId, CancellationToken cancellationToken = default)
+	public async Task<GameDetailModel?> GetGameDetailsAsync(int appId, CancellationToken cancellationToken = default)
 	{
 		try
 		{
@@ -170,7 +170,7 @@ internal sealed class SteamWebService(ILoggerService<SteamWebService> loggerServ
 		}
 	}
 
-	public async Task<UserDataModel?> GetUserProfile(long steamId, string apiKey, CancellationToken cancellationToken = default)
+	public async Task<UserDataModel?> GetUserDataAsync(long steamId, string apiKey, CancellationToken cancellationToken = default)
 	{
 		try
 		{

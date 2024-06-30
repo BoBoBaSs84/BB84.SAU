@@ -31,10 +31,10 @@ The "Steam Achievement Unlocker" or "SAU" offers the possibility to unlock Steam
 
 - Get your self an steam api key
 - Under settings enter **your** steam id and **your** api key
-- Goto games and load the your games
+- Goto games and load your games
 - Select the game of your choice
 - Load the achievements for the game
-- Select the achievement you want to unlock
+- Select the achievement you want to unlock or lock
 
 ## ⚖️ License
 

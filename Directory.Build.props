@@ -40,7 +40,7 @@
 	<PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
 		<Authors>BoBoBaSs84</Authors>
 		<Company>https://github.com/BoBoBaSs84</Company>
-		<Copyright>Copyright © $(VersionMajor) BoBoBaSs84</Copyright>
+		<Copyright>Copyright © $([System.DateTime]::UtcNow.Year) BoBoBaSs84</Copyright>
 		<Description>The "Steam Achievement Unlocker" or "SAU" offers the possibility to unlock Steam achievements that are no longer available, for example through online challenges.</Description>
 		<Product>BB84.SAU</Product>
 		<RepositoryType>git</RepositoryType>

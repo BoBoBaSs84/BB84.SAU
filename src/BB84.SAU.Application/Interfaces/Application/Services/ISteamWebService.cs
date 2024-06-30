@@ -14,7 +14,7 @@ public interface ISteamWebService
 	/// <param name="apiKey">The steam api key to use.</param>
 	/// <param name="cancellationToken">The cancellation token to cancel the request.</param>
 	/// <returns>A list of achievements.</returns>
-	Task<IEnumerable<AchievementModel>> GetAchievements(int appId, string apiKey, CancellationToken cancellationToken = default);
+	Task<IEnumerable<AchievementModel>> GetAchievementsAsync(int appId, string apiKey, CancellationToken cancellationToken = default);
 
 	/// <summary>
 	/// Returns a list of games a player owns along with some playtime information,
@@ -24,7 +24,7 @@ public interface ISteamWebService
 	/// <param name="apiKey">The steam api key to use.</param>
 	/// <param name="cancellationToken">The cancellation token to cancel the request.</param>
 	/// <returns>A list of games.</returns>
-	Task<IEnumerable<GameModel>> GetGames(long steamId, string apiKey, CancellationToken cancellationToken = default);
+	Task<IEnumerable<GameModel>> GetGamesAsync(long steamId, string apiKey, CancellationToken cancellationToken = default);
 
 	/// <summary>
 	/// Returns the application details for a given <paramref name="appId"/>.
@@ -32,14 +32,14 @@ public interface ISteamWebService
 	/// <param name="appId">The steam app id to use.</param>
 	/// <param name="cancellationToken">The cancellation token to cancel the request.</param>
 	/// <returns>The game with some more details.</returns>
-	Task<GameDetailModel?> GetGameDetails(int appId, CancellationToken cancellationToken = default);
+	Task<GameDetailModel?> GetGameDetailsAsync(int appId, CancellationToken cancellationToken = default);
 
 	/// <summary>
-	/// Returns basic profile information.
+	/// Returns basic profile user data information.
 	/// </summary>
 	/// <param name="steamId">The user steam id to use.</param>
 	/// <param name="apiKey">The steam api key to use.</param>
 	/// <param name="cancellationToken">The cancellation token to cancel the request.</param>
-	/// <returns>The profile information.</returns>
-	Task<UserDataModel?> GetUserProfile(long steamId, string apiKey, CancellationToken cancellationToken = default);
+	/// <returns>The profile user data.</returns>
+	Task<UserDataModel?> GetUserDataAsync(long steamId, string apiKey, CancellationToken cancellationToken = default);
 }

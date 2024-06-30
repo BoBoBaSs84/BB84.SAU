@@ -88,18 +88,18 @@ public sealed class UserDataViewModel : ViewModelBase
 		{
 			IsUserDataLoading = true;
 
-			UserDataModel? loadedModel = await _steamWebService.GetUserProfile(_steamSettings.Id, _steamSettings.ApiKey)
+			UserDataModel? userData = await _steamWebService.GetUserDataAsync(_steamSettings.Id, _steamSettings.ApiKey)
 				.ConfigureAwait(true);
 
-			if (loadedModel is null)
+			if (userData is null)
 				return;
 
-			Model.Name = loadedModel.Name;
-			Model.ImageUrl = loadedModel.ImageUrl;
-			Model.ProfileUrl = loadedModel.ProfileUrl;
-			Model.Created = loadedModel.Created;
-			Model.LastLogOff = loadedModel.LastLogOff;
-			Model.LastUpdate = loadedModel.LastUpdate;
+			Model.Name = userData.Name;
+			Model.ImageUrl = userData.ImageUrl;
+			Model.ProfileUrl = userData.ProfileUrl;
+			Model.Created = userData.Created;
+			Model.LastLogOff = userData.LastLogOff;
+			Model.LastUpdate = userData.LastUpdate;
 
 			Image = CreateImageFromUri(new(Model.ImageUrl));
 		}
