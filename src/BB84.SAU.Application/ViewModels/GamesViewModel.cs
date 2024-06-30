@@ -120,16 +120,16 @@ public sealed class GamesViewModel : ViewModelBase
 		{
 			GamesAreLoading = true;
 
-			IEnumerable<GameModel> games = await _steamWebService.GetGamesAsync(_steamSettings.Id, _steamSettings.ApiKey)
+			IEnumerable<GameModel> gamesData = await _steamWebService.GetGamesAsync(_steamSettings.Id, _steamSettings.ApiKey)
 				.ConfigureAwait(true);
 
-			foreach (GameModel game in games)
+			foreach (GameModel gameData in gamesData)
 			{
-				GameDetailModel? gameDetail = await _steamWebService.GetGameDetailsAsync(game.Id)
+				GameDetailModel? gameDetailData = await _steamWebService.GetGameDetailsAsync(gameData.Id)
 					.ConfigureAwait(true);
 
-				if (gameDetail is not null)
-					Model.Games.Add(gameDetail);
+				if (gameDetailData is not null)
+					Model.Games.Add(gameDetailData);
 			}
 		}
 		finally
