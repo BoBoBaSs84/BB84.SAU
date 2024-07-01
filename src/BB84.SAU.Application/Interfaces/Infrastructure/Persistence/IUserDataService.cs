@@ -19,6 +19,6 @@ public interface IUserDataService
 	/// </summary>
 	/// <param name="userData">The user data to persist.</param>
 	/// <param name="cancellationToken">The cancellation token to cancel the request.</param>
-	/// <returns><see cref="Task"/></returns>
-	Task SaveUserDataAsync(UserDataModel userData, CancellationToken cancellationToken = default);
+	/// <returns><see cref="Task{TResult}"/></returns>
+	Task<bool> SaveUserDataAsync(UserDataModel userData, CancellationToken cancellationToken = default);
 }

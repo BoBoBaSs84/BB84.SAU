@@ -47,7 +47,7 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 		}
 	}
 
-	public async Task SaveUserDataAsync(UserDataModel userData, CancellationToken cancellationToken = default)
+	public async Task<bool> SaveUserDataAsync(UserDataModel userData, CancellationToken cancellationToken = default)
 	{
 		try
 		{
@@ -60,11 +60,14 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 			string message = "User data successfully saved.";
 
 			await notificationService.SendAsync(message);
+
+			return true;
 		}
 		catch (Exception ex)
 		{
 			loggerService.Log(LogException, ex);
 			notificationService.Send(ex.Message);
+			return false;
 		}
 	}
 }
