@@ -87,6 +87,7 @@ public partial class App : WinApplication
 		currentUserData.ImageUrl = loadedUserData.ImageUrl;
 		currentUserData.LastLogOff = loadedUserData.LastLogOff;
 		currentUserData.LastUpdate = loadedUserData.LastUpdate;
+		currentUserData.Games = loadedUserData.Games;
 	}
 
 	private async Task SaveUserDataAsync()

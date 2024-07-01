@@ -103,7 +103,7 @@ public sealed class GamesViewModel : ViewModelBase
 		=> SelectedGame is not null && SelectedGame.LastUpdate is not null;
 
 	private bool CanLoadGames()
-		=> Model.LastUpdate is not null && GamesAreLoading.IsFalse();
+		=> GamesAreLoading.IsFalse();
 
 	private bool CanSelectGame(GameDetailModel model)
 		=> model is not null && model.LastUpdate is not null;
@@ -119,6 +119,8 @@ public sealed class GamesViewModel : ViewModelBase
 		try
 		{
 			GamesAreLoading = true;
+
+			Model.Games.Clear();
 
 			IEnumerable<GameModel> gamesData = await _steamWebService.GetGamesAsync(_steamSettings.Id, _steamSettings.ApiKey)
 				.ConfigureAwait(true);

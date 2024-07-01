@@ -10,6 +10,7 @@ using Moq;
 namespace BB84.SAU.Application.Tests.ViewModels;
 
 [TestClass]
+[SuppressMessage("Style", "IDE0058", Justification = "Not relevant here, unit testing.")]
 public sealed class UserDataViewModelTests : ApplicationTestBase
 {
 	private const string TestImageUrl = @"https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Telefunken_FuBK_test_pattern.svg/320px-Telefunken_FuBK_test_pattern.svg.png";
@@ -20,7 +21,7 @@ public sealed class UserDataViewModelTests : ApplicationTestBase
 	{
 		Mock<ISteamWebService> steamWebApiServiceMock = new();
 		Mock<IOptions<SteamSettings>> optionsMock = new();
-		_ = optionsMock.Setup(x => x.Value).Returns(new SteamSettings());
+		optionsMock.Setup(x => x.Value).Returns(new SteamSettings());
 		UserDataModel userDataModel = new();
 
 		UserDataViewModel viewModel = new(steamWebApiServiceMock.Object, optionsMock.Object, userDataModel);
@@ -42,9 +43,9 @@ public sealed class UserDataViewModelTests : ApplicationTestBase
 		UserDataModel userDataModel =
 			new("UnitTest", TestImageUrl, "UnitTestUrl", DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
 		Mock<ISteamWebService> steamWebApiServiceMock = new();
-		_ = steamWebApiServiceMock.Setup(x => x.GetUserDataAsync(id, apiKey, default).Result).Returns(userDataModel);
+		steamWebApiServiceMock.Setup(x => x.GetUserDataAsync(id, apiKey, default).Result).Returns(userDataModel);
 		Mock<IOptions<SteamSettings>> optionsMock = new();
-		_ = optionsMock.Setup(x => x.Value).Returns(new SteamSettings() { Id = id, ApiKey = apiKey });
+		optionsMock.Setup(x => x.Value).Returns(new SteamSettings() { Id = id, ApiKey = apiKey });
 		UserDataViewModel viewModel = new(steamWebApiServiceMock.Object, optionsMock.Object, new());
 
 		await viewModel.LoadUserDataCommand.ExecuteAsync()
@@ -63,9 +64,9 @@ public sealed class UserDataViewModelTests : ApplicationTestBase
 		UserDataModel userDataModel =
 			new("UnitTest", TestImageUrl, "UnitTestUrl", DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
 		Mock<ISteamWebService> steamWebApiServiceMock = new();
-		_ = steamWebApiServiceMock.Setup(x => x.GetUserDataAsync(id, apiKey, default).Result);
+		steamWebApiServiceMock.Setup(x => x.GetUserDataAsync(id, apiKey, default).Result);
 		Mock<IOptions<SteamSettings>> optionsMock = new();
-		_ = optionsMock.Setup(x => x.Value).Returns(new SteamSettings() { Id = id, ApiKey = apiKey });
+		optionsMock.Setup(x => x.Value).Returns(new SteamSettings() { Id = id, ApiKey = apiKey });
 		UserDataViewModel viewModel = new(steamWebApiServiceMock.Object, optionsMock.Object, new());
 
 		await viewModel.LoadUserDataCommand.ExecuteAsync()

@@ -21,7 +21,6 @@ public sealed partial class UserDataServiceTests
 
 		Assert.IsNotNull(result);
 		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
 		Assert.AreEqual(2, _fileProviderMock.Invocations.Count);
 	}
 
@@ -59,7 +58,6 @@ public sealed partial class UserDataServiceTests
 		Assert.AreEqual(testDate, result.LastLogOff);
 		Assert.IsNull(result.LastUpdate);
 		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
 		Assert.AreEqual(2, _fileProviderMock.Invocations.Count);
 	}
 }

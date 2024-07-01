@@ -2,7 +2,6 @@
 using System.Text.Json.Serialization;
 
 using BB84.Extensions.Serialization;
-using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.Interfaces.Infrastructure.Persistence;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Domain.Models;
@@ -16,9 +15,8 @@ namespace BB84.SAU.Infrastructure.Persistence;
 /// The user data service class.
 /// </summary>
 /// <param name="loggerService">The logger service instance to use.</param>
-/// <param name="notificationService">The notification service instance to use.</param>
 /// <param name="fileProvider">The file provider instance to use.</param>
-internal sealed class UserDataService(ILoggerService<UserDataService> loggerService, INotificationService notificationService, IFileProvider fileProvider) : IUserDataService
+internal sealed class UserDataService(ILoggerService<UserDataService> loggerService, IFileProvider fileProvider) : IUserDataService
 {
 	private static readonly Action<ILogger, Exception?> LogException =
 		LoggerMessage.Define(LogLevel.Error, 0, "Exception occured.");
@@ -44,16 +42,11 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 
 			UserDataModel userData = fileContent.FromJson<UserDataModel>(SerializerOptions);
 
-			string message = "User data successfully loaded.";
-
-			await notificationService.SendAsync(message);
-
 			return userData;
 		}
 		catch (Exception ex)
 		{
 			loggerService.Log(LogException, ex);
-			notificationService.Send(ex.Message);
 			return new();
 		}
 	}
@@ -62,22 +55,19 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 	{
 		try
 		{
+			_ = Directory.CreateDirectory(Path.Combine(DataFolder, AppName));
+
 			string filePath = Path.Combine(DataFolder, AppName, DataFile);
 
 			string fileContent = userData.ToJson(SerializerOptions);
 
 			await fileProvider.WriteAllTextAsync(filePath, fileContent, cancellationToken);
 
-			string message = "User data successfully saved.";
-
-			await notificationService.SendAsync(message);
-
 			return true;
 		}
 		catch (Exception ex)
 		{
 			loggerService.Log(LogException, ex);
-			notificationService.Send(ex.Message);
 			return false;
 		}
 	}

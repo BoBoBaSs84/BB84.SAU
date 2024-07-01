@@ -1,5 +1,4 @@
-﻿using BB84.SAU.Application.Interfaces.Application.Services;
-using BB84.SAU.Application.Interfaces.Infrastructure.Persistence;
+﻿using BB84.SAU.Application.Interfaces.Infrastructure.Persistence;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Infrastructure.Interfaces.Provider;
 using BB84.SAU.Infrastructure.Persistence;
@@ -13,7 +12,6 @@ public sealed partial class UserDataServiceTests
 {
 	private const string UserDataContent = @"{""name"":""UnitTest"",""imageUrl"":""UnitTest"",""profileUrl"":""UnitTest"",""created"":""0001-01-01T00:00:00"",""lastLogOff"":""0001-01-01T00:00:00"",""games"":[]}";
 	private Mock<ILoggerService<UserDataService>> _loggerServiceMock = new();
-	private Mock<INotificationService> _notificationServiceMock = new();
 	private Mock<IFileProvider> _fileProviderMock = new();
 
 	[TestMethod]
@@ -34,9 +32,8 @@ public sealed partial class UserDataServiceTests
 	private UserDataService CreateMockedInstance()
 	{
 		_loggerServiceMock = new();
-		_notificationServiceMock = new();
 		_fileProviderMock = new();
 
-		return new(_loggerServiceMock.Object, _notificationServiceMock.Object, _fileProviderMock.Object);
+		return new(_loggerServiceMock.Object, _fileProviderMock.Object);
 	}
 }

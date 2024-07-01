@@ -12,6 +12,7 @@ using Moq;
 namespace BB84.SAU.Application.Tests.ViewModels;
 
 [TestClass]
+[SuppressMessage("Style", "IDE0058", Justification = "Not relevant here, unit testing.")]
 public sealed partial class GamesViewModelTests : ApplicationTestBase
 {
 	private static readonly SteamSettings SteamSettings = new() { Id = 0, ApiKey = "TestKey" };
@@ -31,7 +32,7 @@ public sealed partial class GamesViewModelTests : ApplicationTestBase
 		Assert.IsNotNull(gamesViewModel.Model);
 		Assert.IsNull(gamesViewModel.SelectedGame);
 		Assert.IsNull(gamesViewModel.GameImage);
-		Assert.IsFalse(gamesViewModel.LoadGamesCommand.CanExecute());
+		Assert.IsTrue(gamesViewModel.LoadGamesCommand.CanExecute());
 		Assert.IsFalse(gamesViewModel.GamesAreLoading);
 		Assert.IsFalse(gamesViewModel.IsGameVisible);
 		Assert.IsFalse(gamesViewModel.IsSelectButtonVisible);
@@ -44,7 +45,7 @@ public sealed partial class GamesViewModelTests : ApplicationTestBase
 		_steamApiServiceMock = new();
 		_steamWebServiceMock = new();
 		_optionsMock = new();
-		_ = _optionsMock.Setup(x => x.Value).Returns(SteamSettings);
+		_optionsMock.Setup(x => x.Value).Returns(SteamSettings);
 
 		AchievementsViewModel achievementsViewModel =
 			new(_steamApiServiceMock.Object, _steamWebServiceMock.Object, _optionsMock.Object, _dateTimeProviderMock.Object);

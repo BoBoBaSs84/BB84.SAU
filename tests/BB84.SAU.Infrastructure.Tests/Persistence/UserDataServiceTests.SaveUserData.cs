@@ -20,7 +20,6 @@ public sealed partial class UserDataServiceTests
 
 		Assert.IsFalse(result);
 		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
 	}
 
 	[TestMethod]
@@ -38,7 +37,6 @@ public sealed partial class UserDataServiceTests
 
 		Assert.IsTrue(result);
 		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
 		Assert.AreEqual(1, _fileProviderMock.Invocations.Count);
 	}
 }
