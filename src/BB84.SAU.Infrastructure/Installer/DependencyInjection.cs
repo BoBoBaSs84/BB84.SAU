@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
+using BB84.SAU.Application.Interfaces.Infrastructure.Persistence;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Infrastructure.Extensions;
 using BB84.SAU.Infrastructure.Interfaces.Provider;
+using BB84.SAU.Infrastructure.Persistence;
 using BB84.SAU.Infrastructure.Provider;
 using BB84.SAU.Infrastructure.Services;
 
@@ -31,6 +33,7 @@ public static class DependencyInjection
 		services.TryAddSingleton<IFileProvider, FileProvider>();
 		services.TryAddSingleton<ISteamWorksProvider, SteamWorksProvider>();
 		services.TryAddSingleton<ISteamApiService, SteamApiService>();
+		services.TryAddSingleton<IUserDataService, UserDataService>();
 
 		return services;
 	}

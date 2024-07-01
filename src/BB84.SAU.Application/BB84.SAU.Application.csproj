@@ -6,7 +6,6 @@
 		<ProjectReference Include="..\BB84.SAU.Domain\BB84.SAU.Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Interfaces\Infrastructure\Persistence\" />
 		<Folder Include="Interfaces\Presentation\Services\" />
 	</ItemGroup>
 	<ItemGroup>

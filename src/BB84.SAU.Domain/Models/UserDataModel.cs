@@ -16,11 +16,13 @@ namespace BB84.SAU.Domain.Models;
 /// <param name="lastUpdate">Indicates when the user data was last updated.</param>
 public sealed class UserDataModel(string name, string imageUrl, string? profileUrl, DateTime created, DateTime lastLogOff, DateTime? lastUpdate = null) : ModelBase, IUpdatable
 {
+	private ObservableCollection<GameDetailModel> _games = [];
+
 	/// <summary>
-	/// 
+	/// Initializes a new instance of the <see cref="UserDataModel"/> class.
 	/// </summary>
 	public UserDataModel() : this(string.Empty, string.Empty, string.Empty, default, default)
-	{	}
+	{ }
 
 	/// <summary>
 	/// The name of the user.
@@ -79,5 +81,9 @@ public sealed class UserDataModel(string name, string imageUrl, string? profileU
 	/// <summary>
 	/// The games of the user.
 	/// </summary>
-	public ObservableCollection<GameDetailModel> Games { get; } = [];
+	public ObservableCollection<GameDetailModel> Games
+	{
+		get => _games;
+		set => SetProperty(ref _games, value);
+	}
 }

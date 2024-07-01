@@ -13,6 +13,15 @@ internal sealed class FileProvider : IFileProvider
 	public void Delete(string path)
 		=> File.Delete(path);
 
+	public bool Exists(string? path)
+		=> File.Exists(path);
+
+	public Task<string> ReadAllTextAsync(string path, CancellationToken cancellationToken = default)
+		=> File.ReadAllTextAsync(path, cancellationToken);
+
 	public void WriteAllText(string path, string? contents)
 		=> File.WriteAllText(path, contents);
+
+	public Task WriteAllTextAsync(string path, string? contents, CancellationToken cancellationToken = default)
+		=> File.WriteAllTextAsync(path, contents, cancellationToken);
 }

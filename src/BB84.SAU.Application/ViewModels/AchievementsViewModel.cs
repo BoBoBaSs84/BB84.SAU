@@ -122,7 +122,7 @@ public sealed class AchievementsViewModel : ViewModelBase
 		=> new ActionCommand<AchievementModel?>(UnlockAchievement, CanUnlockAchievement);
 
 	private bool CanLoadAchievements()
-		=> Model.LastUpdate is not null && AchievementsAreLoading.IsFalse();
+		=> AchievementsAreLoading.IsFalse();
 
 	private bool CanLockAchievement(AchievementModel? model)
 		=> model is not null && model.Unlocked.IsTrue();
@@ -135,6 +135,8 @@ public sealed class AchievementsViewModel : ViewModelBase
 		try
 		{
 			AchievementsAreLoading = true;
+
+			Model.Achievements.Clear();
 
 			IEnumerable<AchievementModel> achievementsData = await _steamWebService.GetAchievementsAsync(Model.Id, _steamSettings.ApiKey)
 				.ConfigureAwait(true);
@@ -163,8 +165,8 @@ public sealed class AchievementsViewModel : ViewModelBase
 		if (model is null)
 			return;
 
-		_steamApiService.ResetAchievement(model.Id);
-		_steamApiService.StoreStats();
+		_ = _steamApiService.ResetAchievement(model.Id);
+		_ = _steamApiService.StoreStats();
 
 		SetAchievement(model, false, null);
 	}
@@ -174,8 +176,8 @@ public sealed class AchievementsViewModel : ViewModelBase
 		if (model is null)
 			return;
 
-		_steamApiService.UnlockAchievement(model.Id);
-		_steamApiService.StoreStats();
+		_ = _steamApiService.UnlockAchievement(model.Id);
+		_ = _steamApiService.StoreStats();
 
 		SetAchievement(model, true, _dateTimeProvider.Now);
 	}
@@ -188,7 +190,7 @@ public sealed class AchievementsViewModel : ViewModelBase
 		if (propertyName == nameof(Model))
 		{
 			if (_steamApiService.StatsRequested.IsTrue())
-				_steamApiService.StoreStats();
+				_ = _steamApiService.StoreStats();
 
 			if (_steamApiService.Initialized.IsTrue())
 				_steamApiService.Shutdown();
@@ -203,10 +205,10 @@ public sealed class AchievementsViewModel : ViewModelBase
 		if (propertyName == nameof(Model))
 		{
 			if (_steamApiService.Initialized.IsFalse())
-				_steamApiService.Initialize(Model.Id);
+				_ = _steamApiService.Initialize(Model.Id);
 
 			if (_steamApiService.StatsRequested.IsFalse())
-				_steamApiService.RequestStats();
+				_ = _steamApiService.RequestStats();
 		}
 
 		if (propertyName == nameof(SelectedAchievement) && SelectedAchievement is not null)

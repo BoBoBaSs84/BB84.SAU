@@ -15,6 +15,8 @@ namespace BB84.SAU.Domain.Models;
 /// <param name="lastUpdate">Indicates when the game data was last updated.</param>
 public sealed class GameDetailModel(int id, string title, string? description = null, string? imageUrl = null, DateTime? lastUpdate = null) : ModelBase, IUpdatable
 {
+	private ObservableCollection<AchievementModel> _achievements = [];
+
 	/// <summary>
 	/// Initializes a new instance of the <see cref="GameDetailModel"/> class.
 	/// </summary>
@@ -69,5 +71,9 @@ public sealed class GameDetailModel(int id, string title, string? description = 
 	/// <summary>
 	/// The achievements of the game.
 	/// </summary>
-	public ObservableCollection<AchievementModel> Achievements { get; } = [];
+	public ObservableCollection<AchievementModel> Achievements
+	{
+		get => _achievements;
+		set => SetProperty(ref _achievements, value);
+	}
 }

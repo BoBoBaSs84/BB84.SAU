@@ -35,6 +35,10 @@ public sealed class UserDataViewModel : ViewModelBase
 		_steamSettings = options.Value;
 
 		Model = model;
+
+		if (Model.LastUpdate is not null)
+			Image = CreateImageFromUri(new(Model.ImageUrl));
+
 		Model.PropertyChanged += (s, e) => OnModelPropertyChanged(e.PropertyName);
 	}
 

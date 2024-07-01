@@ -1,12 +1,14 @@
 ﻿using System.Windows;
 
+using BB84.SAU.Application.Interfaces.Infrastructure.Persistence;
+using BB84.SAU.Application.Interfaces.Infrastructure.Services;
+using BB84.SAU.Domain.Models;
+using BB84.SAU.Extensions;
+using BB84.SAU.Presentation.Windows;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
-using BB84.SAU.Application.Interfaces.Infrastructure.Services;
-using BB84.SAU.Extensions;
-using BB84.SAU.Presentation.Windows;
 
 using WinApplication = System.Windows.Application;
 
@@ -45,6 +47,7 @@ public partial class App : WinApplication
 		_loggerService.Log(LogInformation, "Application starting...");
 
 		await _host.StartAsync().ConfigureAwait(false);
+		await LoadUserDataAsync();
 
 		MainWindow mainWindow = _host.Services.GetRequiredService<MainWindow>();
 		mainWindow.Show();
@@ -57,6 +60,8 @@ public partial class App : WinApplication
 		if (_steamApiService.AppId is not null)
 			_steamApiService.Shutdown();
 
+		await SaveUserDataAsync();
+
 		using (_host)
 			await _host.StopAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
 	}
@@ -67,4 +72,30 @@ public partial class App : WinApplication
 	private static IHostBuilder CreateHostBuilder()
 		=> Host.CreateDefaultBuilder().AddApplicationSettings().ConfigureServices((context, services)
 				=> services.RegisterServices(context.HostingEnvironment, context.Configuration));
+
+	private async Task LoadUserDataAsync()
+	{
+		IUserDataService userDataService = _host.Services.GetRequiredService<IUserDataService>();
+		UserDataModel currentUserData = _host.Services.GetRequiredService<UserDataModel>();
+
+		UserDataModel loadedUserData = await userDataService.LoadUserDataAsync()
+			.ConfigureAwait(false);
+
+		currentUserData.Created = loadedUserData.Created;
+		currentUserData.Name = loadedUserData.Name;
+		currentUserData.ProfileUrl = loadedUserData.ProfileUrl;
+		currentUserData.ImageUrl = loadedUserData.ImageUrl;
+		currentUserData.LastLogOff = loadedUserData.LastLogOff;
+		currentUserData.LastUpdate = loadedUserData.LastUpdate;
+		currentUserData.Games = loadedUserData.Games;
+	}
+
+	private async Task SaveUserDataAsync()
+	{
+		IUserDataService userDataService = _host.Services.GetRequiredService<IUserDataService>();
+		UserDataModel currentUserData = _host.Services.GetRequiredService<UserDataModel>();
+
+		_ = await userDataService.SaveUserDataAsync(currentUserData)
+			.ConfigureAwait(false);
+	}
 }
