@@ -11,4 +11,10 @@ internal interface IFileProvider
 
 	/// <inheritdoc cref="File.Delete(string)"/>
 	void Delete(string path);
+
+	/// <inheritdoc cref="File.ReadAllTextAsync(string, CancellationToken)"/>
+	Task<string> ReadAllTextAsync(string path, CancellationToken cancellationToken = default);
+
+	/// <inheritdoc cref="File.WriteAllTextAsync(string, string?, CancellationToken)"/>
+	Task WriteAllTextAsync(string path, string? contents, CancellationToken cancellationToken = default);
 }
