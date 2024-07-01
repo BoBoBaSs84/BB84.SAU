@@ -11,7 +11,7 @@ namespace BB84.SAU.Infrastructure.Tests.Persistence;
 [TestClass]
 public sealed partial class UserDataServiceTests
 {
-	private const string UserDataContent = @"{""name"":""TestUser"",""imageUrl"":""TestUser"",""profileUrl"":""TestUser"",""created"":""0001-01-01T00:00:00"",""lastLogOff"":""0001-01-01T00:00:00"",""games"":[]}";
+	private const string UserDataContent = @"{""name"":""UnitTest"",""imageUrl"":""UnitTest"",""profileUrl"":""UnitTest"",""created"":""0001-01-01T00:00:00"",""lastLogOff"":""0001-01-01T00:00:00"",""games"":[]}";
 	private Mock<ILoggerService<UserDataService>> _loggerServiceMock = new();
 	private Mock<INotificationService> _notificationServiceMock = new();
 	private Mock<IFileProvider> _fileProviderMock = new();

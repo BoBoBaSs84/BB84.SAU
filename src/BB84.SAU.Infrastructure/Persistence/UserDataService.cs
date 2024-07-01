@@ -1,4 +1,7 @@
-﻿using BB84.Extensions.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+
+using BB84.Extensions.Serialization;
 using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.Interfaces.Infrastructure.Persistence;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
@@ -20,6 +23,10 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 	private static readonly Action<ILogger, Exception?> LogException =
 		LoggerMessage.Define(LogLevel.Error, 0, "Exception occured.");
 
+	private static readonly JsonSerializerOptions SerializerOptions = new(JsonSerializerDefaults.Web)
+	{
+		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+	};
 	private static readonly string AppName = "BB84.SAU";
 	private static readonly string DataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 	private static readonly string DataFile = "UserData.json";
@@ -35,7 +42,7 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 
 			string fileContent = await fileProvider.ReadAllTextAsync(filePath, cancellationToken);
 
-			UserDataModel userData = fileContent.FromJson<UserDataModel>();
+			UserDataModel userData = fileContent.FromJson<UserDataModel>(SerializerOptions);
 
 			string message = "User data successfully loaded.";
 
@@ -57,7 +64,7 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 		{
 			string filePath = Path.Combine(DataFolder, AppName, DataFile);
 
-			string fileContent = userData.ToJson();
+			string fileContent = userData.ToJson(SerializerOptions);
 
 			await fileProvider.WriteAllTextAsync(filePath, fileContent, cancellationToken);
 

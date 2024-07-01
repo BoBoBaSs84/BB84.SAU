@@ -30,8 +30,9 @@ public sealed partial class UserDataServiceTests
 		UserDataService service = CreateMockedInstance();
 		_fileProviderMock.Setup(x => x.WriteAllTextAsync(It.IsAny<string>(), It.IsAny<string>(), default))
 			.Returns(Task.CompletedTask);
-		UserDataModel userData =
-			new(string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
+		string unitTest = "UnitTest";
+		DateTime dateTime = new(1970, 1, 1);
+		UserDataModel userData = new(unitTest, unitTest, unitTest, dateTime, dateTime, dateTime);
 
 		bool result = await service.SaveUserDataAsync(userData);
 

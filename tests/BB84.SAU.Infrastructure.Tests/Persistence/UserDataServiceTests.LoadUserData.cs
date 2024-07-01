@@ -42,8 +42,8 @@ public sealed partial class UserDataServiceTests
 	[TestCategory("Methods")]
 	public async Task LoadUserDataShouldReturnValidResultWhenSuccessful()
 	{
-		string testUser = "TestUser";
-		DateTime dateTime = new(1, 1, 1);
+		string testUser = "UnitTest";
+		DateTime testDate = new(1, 1, 1);
 		UserDataService service = CreateMockedInstance();
 		_fileProviderMock.Setup(x => x.Exists(It.IsAny<string>())).Returns(true);
 		_fileProviderMock.Setup(x => x.ReadAllTextAsync(It.IsAny<string>(), default))
@@ -55,8 +55,8 @@ public sealed partial class UserDataServiceTests
 		Assert.AreEqual(testUser, result.Name);
 		Assert.AreEqual(testUser, result.ProfileUrl);
 		Assert.AreEqual(testUser, result.ImageUrl);
-		Assert.AreEqual(dateTime, result.Created);
-		Assert.AreEqual(dateTime, result.LastLogOff);
+		Assert.AreEqual(testDate, result.Created);
+		Assert.AreEqual(testDate, result.LastLogOff);
 		Assert.IsNull(result.LastUpdate);
 		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
 		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
