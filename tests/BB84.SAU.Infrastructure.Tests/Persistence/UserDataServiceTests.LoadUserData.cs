@@ -10,9 +10,10 @@ public sealed partial class UserDataServiceTests
 {
 	[TestMethod]
 	[TestCategory("Methods")]
-	public async Task LoadUserDataShouldReturnEmptyResultWhenExceptionGetsThrown()
+	public async Task LoadUserDataShouldReturnNewWhenExceptionGetsThrown()
 	{
 		UserDataService service = CreateMockedInstance();
+		_fileProviderMock.Setup(x => x.Exists(It.IsAny<string>())).Returns(true);
 		_fileProviderMock.Setup(x => x.ReadAllTextAsync(It.IsAny<string>(), default))
 			.Throws(new IOException());
 
@@ -21,6 +22,20 @@ public sealed partial class UserDataServiceTests
 		Assert.IsNotNull(result);
 		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
 		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
+		Assert.AreEqual(2, _fileProviderMock.Invocations.Count);
+	}
+
+	[TestMethod]
+	[TestCategory("Methods")]
+	public async Task LoadUserDataShouldReturnNewWhenNotExists()
+	{
+		UserDataService service = CreateMockedInstance();
+		_fileProviderMock.Setup(x => x.Exists(It.IsAny<string>())).Returns(false);
+
+		UserDataModel result = await service.LoadUserDataAsync();
+
+		Assert.IsNotNull(result);
+		Assert.AreEqual(1, _fileProviderMock.Invocations.Count);
 	}
 
 	[TestMethod]
@@ -30,6 +45,7 @@ public sealed partial class UserDataServiceTests
 		string testUser = "TestUser";
 		DateTime dateTime = new(1, 1, 1);
 		UserDataService service = CreateMockedInstance();
+		_fileProviderMock.Setup(x => x.Exists(It.IsAny<string>())).Returns(true);
 		_fileProviderMock.Setup(x => x.ReadAllTextAsync(It.IsAny<string>(), default))
 			.ReturnsAsync(UserDataContent);
 
@@ -44,6 +60,6 @@ public sealed partial class UserDataServiceTests
 		Assert.IsNull(result.LastUpdate);
 		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
 		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _fileProviderMock.Invocations.Count);
+		Assert.AreEqual(2, _fileProviderMock.Invocations.Count);
 	}
 }

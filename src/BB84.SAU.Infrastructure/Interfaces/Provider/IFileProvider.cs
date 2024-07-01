@@ -6,14 +6,17 @@
 /// </summary>
 internal interface IFileProvider
 {
-	/// <inheritdoc cref="File.WriteAllText(string, string?)"/>
-	void WriteAllText(string path, string? contents);
-
 	/// <inheritdoc cref="File.Delete(string)"/>
 	void Delete(string path);
 
+	/// <inheritdoc cref="File.Exists(string?)"/>
+	bool Exists(string? path);
+
 	/// <inheritdoc cref="File.ReadAllTextAsync(string, CancellationToken)"/>
 	Task<string> ReadAllTextAsync(string path, CancellationToken cancellationToken = default);
+
+	/// <inheritdoc cref="File.WriteAllText(string, string?)"/>
+	void WriteAllText(string path, string? contents);
 
 	/// <inheritdoc cref="File.WriteAllTextAsync(string, string?, CancellationToken)"/>
 	Task WriteAllTextAsync(string path, string? contents, CancellationToken cancellationToken = default);

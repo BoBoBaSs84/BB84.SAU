@@ -20,6 +20,7 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 	private static readonly Action<ILogger, Exception?> LogException =
 		LoggerMessage.Define(LogLevel.Error, 0, "Exception occured.");
 
+	private static readonly string AppName = "BB84.SAU";
 	private static readonly string DataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 	private static readonly string DataFile = "UserData.json";
 
@@ -27,7 +28,10 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 	{
 		try
 		{
-			string filePath = Path.Combine(DataFolder, DataFile);
+			string filePath = Path.Combine(DataFolder, AppName, DataFile);
+
+			if (!fileProvider.Exists(filePath))
+				return new();
 
 			string fileContent = await fileProvider.ReadAllTextAsync(filePath, cancellationToken);
 
@@ -51,7 +55,7 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 	{
 		try
 		{
-			string filePath = Path.Combine(DataFolder, DataFile);
+			string filePath = Path.Combine(DataFolder, AppName, DataFile);
 
 			string fileContent = userData.ToJson();
 
