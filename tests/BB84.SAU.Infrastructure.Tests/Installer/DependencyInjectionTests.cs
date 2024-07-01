@@ -22,6 +22,6 @@ public class DependencyInjectionTests
 
 		services.RegisterInfrastructureServices(env.Object);
 
-		Assert.AreEqual(15, services.Count);
+		Assert.AreEqual(16, services.Count);
 	}
 }
