@@ -1,10 +1,10 @@
 <Project>
 
 	<PropertyGroup>
-		<VersionStatus>Alpha</VersionStatus>
+		<VersionStatus>Beta</VersionStatus>
 		<VersionMajor>1</VersionMajor>
 		<VersionMinor>0</VersionMinor>
-		<VersionPatch>$([System.DateTime]::UtcNow.Day)</VersionPatch>
+		<VersionPatch>$([System.DateTime]::UtcNow.ToString("MMdd"))</VersionPatch>
 		<VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("0"))</VersionRevision>
 		<VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch).$(VersionRevision)</VersionPrefix>
 		<FileVersion>$(VersionMajor).$(VersionMinor).$(VersionPatch)</FileVersion>
