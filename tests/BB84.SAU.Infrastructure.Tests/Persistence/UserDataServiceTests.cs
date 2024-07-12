@@ -12,6 +12,7 @@ public sealed partial class UserDataServiceTests
 {
 	private const string UserDataContent = @"{""name"":""UnitTest"",""imageUrl"":""UnitTest"",""profileUrl"":""UnitTest"",""created"":""0001-01-01T00:00:00"",""lastLogOff"":""0001-01-01T00:00:00"",""games"":[]}";
 	private Mock<ILoggerService<UserDataService>> _loggerServiceMock = new();
+	private Mock<IDirectoryProvider> _directoryProviderMock = new();
 	private Mock<IFileProvider> _fileProviderMock = new();
 
 	[TestMethod]
@@ -32,8 +33,9 @@ public sealed partial class UserDataServiceTests
 	private UserDataService CreateMockedInstance()
 	{
 		_loggerServiceMock = new();
+		_directoryProviderMock = new();
 		_fileProviderMock = new();
 
-		return new(_loggerServiceMock.Object, _fileProviderMock.Object);
+		return new(_loggerServiceMock.Object, _directoryProviderMock.Object, _fileProviderMock.Object);
 	}
 }
