@@ -37,6 +37,7 @@ public sealed partial class UserDataServiceTests
 
 		Assert.IsTrue(result);
 		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
+		Assert.AreEqual(1, _directoryProviderMock.Invocations.Count);
 		Assert.AreEqual(1, _fileProviderMock.Invocations.Count);
 	}
 }
