@@ -15,8 +15,9 @@ namespace BB84.SAU.Infrastructure.Persistence;
 /// The user data service class.
 /// </summary>
 /// <param name="loggerService">The logger service instance to use.</param>
+/// <param name="directoryProvider">The directory provider instance to use.</param>
 /// <param name="fileProvider">The file provider instance to use.</param>
-internal sealed class UserDataService(ILoggerService<UserDataService> loggerService, IFileProvider fileProvider) : IUserDataService
+internal sealed class UserDataService(ILoggerService<UserDataService> loggerService, IDirectoryProvider directoryProvider, IFileProvider fileProvider) : IUserDataService
 {
 	private static readonly Action<ILogger, Exception?> LogException =
 		LoggerMessage.Define(LogLevel.Error, 0, "Exception occured.");
@@ -55,7 +56,7 @@ internal sealed class UserDataService(ILoggerService<UserDataService> loggerServ
 	{
 		try
 		{
-			_ = Directory.CreateDirectory(Path.Combine(DataFolder, AppName));
+			_ = directoryProvider.CreateDirectory(Path.Combine(DataFolder, AppName));
 
 			string filePath = Path.Combine(DataFolder, AppName, DataFile);
 
