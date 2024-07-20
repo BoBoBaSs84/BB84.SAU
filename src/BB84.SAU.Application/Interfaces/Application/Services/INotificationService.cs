@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
+
+using BB84.SAU.Domain.Models;
 
 namespace BB84.SAU.Application.Interfaces.Application.Services;
 
@@ -16,6 +19,11 @@ public interface INotificationService
 	/// The event handler for synchronous message receiving.
 	/// </summary>
 	event NotificationEventHandler? NotificationReceived;
+
+	/// <summary>
+	/// Holds the sent messages.
+	/// </summary>
+	ObservableCollection<LogbookModel> Messages { get; }
 
 	/// <summary>
 	/// Sends a synchronous <paramref name="message"/> to all the subscribers.
