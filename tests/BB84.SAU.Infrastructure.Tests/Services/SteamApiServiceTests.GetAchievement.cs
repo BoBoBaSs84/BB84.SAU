@@ -38,7 +38,7 @@ public sealed partial class SteamApiServiceTests
 		Assert.IsFalse(result.Achieved);
 		Assert.IsNull(result.UnlockTime);
 		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(0, _notificationServiceMock.Invocations.Count);
+		Assert.AreEqual(3, _notificationServiceMock.Invocations.Count);
 		Assert.AreEqual(3, _steamWorksProviderMock.Invocations.Count);
 	}
 
@@ -60,7 +60,7 @@ public sealed partial class SteamApiServiceTests
 		Assert.IsTrue(result.Achieved);
 		Assert.AreEqual(DateTimeOffset.FromUnixTimeSeconds(unlockTime).LocalDateTime, result.UnlockTime);
 		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(0, _notificationServiceMock.Invocations.Count);
+		Assert.AreEqual(2, _notificationServiceMock.Invocations.Count);
 		Assert.AreEqual(3, _steamWorksProviderMock.Invocations.Count);
 	}
 }

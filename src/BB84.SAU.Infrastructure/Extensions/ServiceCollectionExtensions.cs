@@ -34,13 +34,18 @@ internal static class ServiceCollectionExtensions
 		services.AddLogging(config =>
 		{
 			config.ClearProviders();
-			config.AddEventLog(config => config.SourceName = environment.ApplicationName);
-
+			
 			if (environment.IsDevelopment())
+			{
+				config.AddConsole();
 				config.SetMinimumLevel(LogLevel.Debug);
+			}
 
 			if (environment.IsProduction())
+			{
+				config.AddEventLog(config => config.SourceName = environment.ApplicationName);
 				config.SetMinimumLevel(LogLevel.Warning);
+			}
 		});
 
 		return services;

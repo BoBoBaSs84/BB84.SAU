@@ -1,4 +1,5 @@
-﻿using BB84.SAU.Application.Interfaces.Application.Services;
+﻿using BB84.Extensions;
+using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Domain.Exceptions;
 using BB84.SAU.Infrastructure.Interfaces.Provider;
@@ -39,6 +40,8 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 			if (success)
 				AppId = appId;
 
+			notificationService.Send($"SDK for AppId: '{appId}' initialized successfully.");
+
 			return Initialized;
 		}
 		catch (Exception ex)
@@ -58,6 +61,8 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 
 			StatsRequested = steamWorksProvider.RequestCurrentStats();
 
+			notificationService.Send($"Current user stats requested successfully.");
+
 			return StatsRequested;
 		}
 		catch (Exception ex)
@@ -76,10 +81,13 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 				throw new SteamSdkException("Stats have not been requested!");
 
 			bool result = steamWorksProvider.GetAchievementAndUnlockTime(name, out bool achieved, out uint unlockTime);
-			
+
 			DateTime? dateTime = achieved
 				? DateTimeOffset.FromUnixTimeSeconds(unlockTime).LocalDateTime
 				: null;
+
+			if (result)
+				notificationService.Send($"Achievement '{name}' requested successfully.");
 
 			return (achieved, dateTime);
 		}
@@ -100,6 +108,9 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 
 			bool result = steamWorksProvider.ClearAchievement(name);
 
+			if (result)
+				notificationService.Send($"Achievement '{name}' reseted successfully.");
+
 			return result;
 		}
 		catch (Exception ex)
@@ -118,6 +129,9 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 				throw new SteamSdkException("Stats have not been requested!");
 
 			bool result = steamWorksProvider.SetAchievement(name);
+
+			if (result)
+				notificationService.Send($"Achievement '{name}' unlocked successfully.");
 
 			return result;
 		}
@@ -152,9 +166,15 @@ internal sealed class SteamApiService(ILoggerService<SteamApiService> loggerServ
 	{
 		try
 		{
-			return !StatsRequested
-				? throw new SteamSdkException("Stats have not been requested!")
-				: steamWorksProvider.StoreStats();
+			if (StatsRequested.IsFalse())
+				throw new SteamSdkException("Stats have not been requested!");
+
+			bool result = steamWorksProvider.StoreStats();
+
+			if (result)
+				notificationService.Send($"Current user stats stored successfully.");
+
+			return result;
 		}
 		catch (Exception ex)
 		{
