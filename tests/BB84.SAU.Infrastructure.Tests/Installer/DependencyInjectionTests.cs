@@ -13,11 +13,25 @@ public class DependencyInjectionTests
 {
 	[TestMethod]
 	[TestCategory("DependencyInjection")]
-	public void RegisterInfrastructureServicesTest()
+	public void RegisterInfrastructureServicesDevelopmentTest()
 	{
 		Mock<IHostEnvironment> env = new Mock<IHostEnvironment>()
 			.SetupAllProperties();
 		env.Setup(x => x.EnvironmentName).Returns("Development");
+		IServiceCollection services = new ServiceCollection();
+
+		services.RegisterInfrastructureServices(env.Object);
+
+		Assert.AreEqual(29, services.Count);
+	}
+
+	[TestMethod]
+	[TestCategory("DependencyInjection")]
+	public void RegisterInfrastructureServicesProductionTest()
+	{
+		Mock<IHostEnvironment> env = new Mock<IHostEnvironment>()
+			.SetupAllProperties();
+		env.Setup(x => x.EnvironmentName).Returns("Production");
 		IServiceCollection services = new ServiceCollection();
 
 		services.RegisterInfrastructureServices(env.Object);

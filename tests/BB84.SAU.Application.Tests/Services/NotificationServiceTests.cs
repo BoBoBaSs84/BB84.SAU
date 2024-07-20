@@ -16,6 +16,7 @@ public sealed class NotificationServiceTests
 		service.Send(string.Empty);
 
 		Assert.IsTrue(notificationReceived);
+		Assert.IsTrue(service.Messages.Any());
 	}
 
 	[TestMethod]
@@ -30,5 +31,6 @@ public sealed class NotificationServiceTests
 			.ConfigureAwait(true);
 
 		Assert.IsTrue(notificationReceived);
+		Assert.IsTrue(service.Messages.Any());
 	}
 }

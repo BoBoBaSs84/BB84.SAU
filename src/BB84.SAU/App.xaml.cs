@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 
+using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.Interfaces.Infrastructure.Persistence;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Domain.Models;
@@ -21,6 +22,7 @@ public partial class App : WinApplication
 {
 	private readonly IHost _host;
 	private readonly ILoggerService<App> _loggerService;
+	private readonly INotificationService _notificationService;
 	private readonly ISteamApiService _steamApiService;
 
 	private static readonly Action<ILogger, string, Exception?> LogInformation =
@@ -37,6 +39,7 @@ public partial class App : WinApplication
 		_host = CreateHostBuilder().Build();
 
 		_loggerService = _host.Services.GetRequiredService<ILoggerService<App>>();
+		_notificationService = _host.Services.GetRequiredService<INotificationService>();
 		_steamApiService = _host.Services.GetRequiredService<ISteamApiService>();
 
 		DispatcherUnhandledException += (s, e) => OnUnhandledException(e.Exception);
@@ -44,7 +47,9 @@ public partial class App : WinApplication
 
 	private async void Application_Startup(object sender, StartupEventArgs e)
 	{
-		_loggerService.Log(LogInformation, "Application starting...");
+		string message = $"Application starting...";
+		_notificationService.Send(message);
+		_loggerService.Log(LogInformation, message);
 
 		await _host.StartAsync().ConfigureAwait(false);
 		await LoadUserDataAsync();
@@ -55,7 +60,9 @@ public partial class App : WinApplication
 
 	private async void Application_Exit(object sender, ExitEventArgs e)
 	{
-		_loggerService.Log(LogInformation, "Application exiting...");
+		string message = $"Application exiting...";
+		_notificationService.Send(message);
+		_loggerService.Log(LogInformation, message);
 
 		if (_steamApiService.AppId is not null)
 			_steamApiService.Shutdown();
@@ -88,6 +95,10 @@ public partial class App : WinApplication
 		currentUserData.LastLogOff = loadedUserData.LastLogOff;
 		currentUserData.LastUpdate = loadedUserData.LastUpdate;
 		currentUserData.Games = loadedUserData.Games;
+
+		string message = $"User data loaded.";
+		_notificationService.Send(message);
+		_loggerService.Log(LogInformation, message);
 	}
 
 	private async Task SaveUserDataAsync()
@@ -97,5 +108,9 @@ public partial class App : WinApplication
 
 		_ = await userDataService.SaveUserDataAsync(currentUserData)
 			.ConfigureAwait(false);
+
+		string message = $"User data saved.";
+		_notificationService.Send(message);
+		_loggerService.Log(LogInformation, message);
 	}
 }

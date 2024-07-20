@@ -1,4 +1,7 @@
-﻿using BB84.SAU.Application.Interfaces.Application.Services;
+﻿using System.Collections.ObjectModel;
+
+using BB84.SAU.Application.Interfaces.Application.Services;
+using BB84.SAU.Domain.Models;
 
 namespace BB84.SAU.Application.Services;
 
@@ -11,15 +14,17 @@ internal sealed class NotificationService : INotificationService
 
 	public event NotificationEventHandler? NotificationReceived;
 
+	public ObservableCollection<LogbookModel> Messages { get; } = [];
+
 	public void Send(string message)
 	{
-		if (NotificationReceived is not null)
-			NotificationReceived.Invoke(this, message);
+		Messages.Add(new(message));
+		NotificationReceived?.Invoke(this, message);
 	}
 
 	public async Task SendAsync(string message)
 	{
-		if (AsyncNotificationReceived is not null)
-			await AsyncNotificationReceived.Invoke(this, message);
+		Messages.Add(new(message));
+		await AsyncNotificationReceived?.Invoke(this, message)!;
 	}
 }
