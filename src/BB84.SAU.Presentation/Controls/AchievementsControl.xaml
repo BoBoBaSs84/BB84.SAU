@@ -28,157 +28,197 @@
 		<Grid x:Name="AchievementsGrid"
 					Grid.Column="1"
 					Grid.Row="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="Auto" />
-			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
-			<!-- Achievements -->
-			<GroupBox x:Name="AchievementsGroupBox"
-								Grid.Column="0"
-								Grid.ColumnSpan="4"
+			<!-- Progress -->
+			<GroupBox x:Name="ProgressGroupBox"
 								Grid.Row="0"
-								Header="Achievements">
-				<DataGrid x:Name="AchievementsDataGrid"
-									AutoGenerateColumns="False"
-									HeadersVisibility="Column"
-									ItemsSource="{Binding Model.Achievements}"
-									IsReadOnly="True"
-									SelectedItem="{Binding SelectedAchievement}"
-									VerticalScrollBarVisibility="Auto">
-					<DataGrid.Columns>
-						<DataGridTextColumn Header="Name"
-																Binding="{Binding Name}"
-																Width="*">
-							<DataGridTextColumn.CellStyle>
-								<Style>
-									<Setter Property="TextBlock.TextWrapping"
-													Value="Wrap" />
-								</Style>
-							</DataGridTextColumn.CellStyle>
-						</DataGridTextColumn>
-					</DataGrid.Columns>
-				</DataGrid>
+								Header="Progress"
+								Visibility="{Binding Model.HasAchievements, Converter={StaticResource btvc}}">
+				<Grid Margin="5">
+					<ProgressBar x:Name="AchievementsProgressBar"
+											 Minimum="0"
+											 Maximum="{Binding Model.AchievementsCount}"
+											 Value="{Binding Model.AchievementsUnlocked, Mode=OneWay}" />
+					<TextBlock Text="{Binding Model.AchievementsProgress, StringFormat={}{0:0}%}"
+										 HorizontalAlignment="Center"
+										 VerticalAlignment="Center" />
+				</Grid>
 			</GroupBox>
-			<!-- Achievement -->
-			<GroupBox x:Name="AchievementGroupBox"
-								Grid.Column="0"
-								Grid.ColumnSpan="4"
-								Grid.Row="1"
-								Header="Achievement"
-								Visibility="{Binding IsAchievementVisible, Converter={StaticResource btvc}}">
-				<Grid x:Name="AchievementGrid">
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*" />
+					<ColumnDefinition Width="1*" />
+				</Grid.ColumnDefinitions>
+				<!-- Achievements -->
+				<GroupBox x:Name="AchievementsGroupBox"
+									Grid.Column="0"
+									Header="Achievements">
+					<DataGrid x:Name="AchievementsDataGrid"
+										AutoGenerateColumns="False"
+										HeadersVisibility="Column"
+										ItemsSource="{Binding Model.Achievements}"
+										IsReadOnly="True"
+										SelectedItem="{Binding SelectedAchievement}"
+										VerticalScrollBarVisibility="Auto">
+						<DataGrid.Columns>
+							<DataGridCheckBoxColumn Header="Unlocked"
+																			Binding="{Binding Unlocked}"
+																			Width="Auto" />
+							<DataGridTextColumn Header="Name"
+																	Binding="{Binding Name}"
+																	Width="*">
+								<DataGridTextColumn.CellStyle>
+									<Style>
+										<Setter Property="TextBlock.TextWrapping"
+														Value="Wrap" />
+									</Style>
+								</DataGridTextColumn.CellStyle>
+							</DataGridTextColumn>
+						</DataGrid.Columns>
+					</DataGrid>
+				</GroupBox>
+				<!-- Achievement -->
+				<GroupBox x:Name="AchievementGroupBox"
+									Grid.Column="1"
+									Header="Achievement"
+									Visibility="{Binding IsAchievementVisible, Converter={StaticResource btvc}}">
+					<Grid x:Name="AchievementGrid">
+						<!-- Achievement Data -->
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid  Grid.Column="0"
+										 Grid.ColumnSpan="2"
+										 Grid.Row="0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<Image x:Name="AchievementImage"
+											 Grid.Column="0"
+											 Grid.Row="0"
+											 Grid.RowSpan="3"
+											 MaxWidth="80"
+											 Margin="1"
+											 HorizontalAlignment="Left"
+											 Source="{Binding AchievementImage.Source}"
+											 RenderOptions.BitmapScalingMode="NearestNeighbor"
+											 RenderOptions.EdgeMode="Aliased"
+											 VerticalAlignment="Top" />
+								<Label Grid.Column="1"
+											 Grid.Row="0"
+											 Content="Id:" />
+								<Label Grid.Column="2"
+											 Grid.Row="0"
+											 Content="{Binding SelectedAchievement.Id}" />
+								<Label Grid.Column="1"
+											 Grid.Row="1"
+											 Content="Name:" />
+								<Label Grid.Column="2"
+											 Grid.Row="1"
+											 Content="{Binding SelectedAchievement.Name}" />
+								<Label Grid.Column="1"
+											 Grid.Row="2"
+											 Content="Hidden:" />
+								<CheckBox Grid.Column="2"
+													Grid.Row="2"
+													IsChecked="{Binding SelectedAchievement.Hidden}"
+													IsEnabled="False"
+													VerticalAlignment="Center" />
+							</Grid>
+							<!-- Achievement Image -->
+							<Label Grid.Column="0"
+										 Grid.Row="1"
+										 Content="Description:" />
+							<TextBlock Grid.Column="1"
+												 Grid.Row="1"
+												 Text="{Binding SelectedAchievement.Description}"
+												 TextWrapping="Wrap"
+												 Margin="5" />
+							<Label Grid.Column="0"
+										 Grid.Row="2"
+										 Content="Unlocked:"
+										 Visibility="{Binding SelectedAchievement.Unlocked, Converter={StaticResource btvc}}" />
+							<Label Grid.Column="1"
+										 Grid.Row="2"
+										 Content="{Binding SelectedAchievement.UnlockedTime}"
+										 Visibility="{Binding SelectedAchievement.Unlocked, Converter={StaticResource btvc}}" />
+						</Grid>
+					</Grid>
+				</GroupBox>
+			</Grid>
+			<!-- Actions -->
+			<GroupBox x:Name="ActionsGroupBox"
+								Grid.Row="3"
+								Header="Actions">
+				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
-					<!-- Achievement Image -->
-					<Image x:Name="AchievementImage"
-								 Grid.Column="0"
-								 MaxHeight="120"
-								 MaxWidth="120"
-								 Margin="4"
-								 Source="{Binding AchievementImage.Source}"
-								 RenderOptions.BitmapScalingMode="NearestNeighbor"
-								 RenderOptions.EdgeMode="Aliased"
-								 VerticalAlignment="Center" />
-					<!-- Achievement Data -->
-					<Grid Grid.Column="1">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-						<Label Grid.Column="0"
-									 Grid.Row="0"
-									 Content="Id:" />
-						<Label Grid.Column="1"
-									 Grid.Row="0"
-									 Content="{Binding SelectedAchievement.Id}" />
-						<Label Grid.Column="0"
-									 Grid.Row="1"
-									 Content="Name:" />
-						<Label Grid.Column="1"
-									 Grid.Row="1"
-									 Content="{Binding SelectedAchievement.Name}" />
-						<StackPanel Grid.Column="0"
-												Grid.ColumnSpan="2"
-												Grid.Row="2"
-												Orientation="Horizontal">
-							<Label Content="Hidden:" />
-							<CheckBox IsChecked="{Binding SelectedAchievement.Hidden}"
-												IsEnabled="False"
-												VerticalAlignment="Center" />
-							<Label Content="Unlocked:" />
-							<CheckBox IsChecked="{Binding SelectedAchievement.Unlocked}"
-												IsEnabled="False"
-												VerticalAlignment="Center" />
+					<!-- Load Achievements -->
+					<Button x:Name="LoadAchievementsButton"
+									Grid.Column="0"
+									Command="{Binding LoadAchievementsCommand}"
+									Margin="5">
+						<StackPanel Orientation="Horizontal"
+												Margin="3">
+							<fa:SvgAwesome Height="20"
+														 Icon="Solid_Sync"
+														 ToolTip="Load or refresh achievements" />
 						</StackPanel>
-						<Label Grid.Column="0"
-									 Grid.Row="3"
-									 Content="Description:" />
-						<TextBlock Grid.Column="1"
-											 Grid.Row="3"
-											 Text="{Binding SelectedAchievement.Description}"
-											 TextWrapping="Wrap"
-											 Margin="5" />
-					</Grid>
+					</Button>
+					<!-- Lock Achievement -->
+					<Button x:Name="LockAchievementButton"
+									Grid.Column="2"
+									Command="{Binding LockAchievementCommand}"
+									CommandParameter="{Binding SelectedAchievement}"
+									Margin="5"
+									Visibility="{Binding IsAchievementLockable, Converter={StaticResource btvc}}">
+						<StackPanel Orientation="Horizontal"
+												Margin="3">
+							<fa:SvgAwesome Height="20"
+														 Icon="Solid_Lock"
+														 ToolTip="Lockock Achievement" />
+						</StackPanel>
+					</Button>
+					<!-- Unlock Achievement -->
+					<Button x:Name="UnlockAchievementButton"
+									Grid.Column="3"
+									Command="{Binding UnlockAchievementCommand}"
+									CommandParameter="{Binding SelectedAchievement}"
+									Margin="5"
+									Visibility="{Binding IsAchievementUnlockable, Converter={StaticResource btvc}}">
+						<StackPanel Orientation="Horizontal"
+												Margin="3">
+							<fa:SvgAwesome Height="20"
+														 Icon="Solid_Unlock"
+														 ToolTip="Unlock Achievement" />
+						</StackPanel>
+					</Button>
 				</Grid>
 			</GroupBox>
-			<!-- Load Achievements -->
-			<Button x:Name="LoadAchievementsButton"
-							Grid.Column="0"
-							Grid.Row="2"
-							Command="{Binding LoadAchievementsCommand}"
-							Margin="5">
-				<StackPanel Orientation="Horizontal"
-										Margin="3">
-					<fa:SvgAwesome Height="20"
-												 Icon="Solid_Sync"
-												 ToolTip="Load or refresh achievements" />
-				</StackPanel>
-			</Button>
-			<!-- Lock Achievement -->
-			<Button x:Name="LockAchievementButton"
-							Grid.Column="2"
-							Grid.Row="2"
-							Command="{Binding LockAchievementCommand}"
-							CommandParameter="{Binding SelectedAchievement}"
-							Margin="5"
-							Visibility="{Binding IsAchievementLockable, Converter={StaticResource btvc}}">
-				<StackPanel Orientation="Horizontal"
-										Margin="3">
-					<fa:SvgAwesome Height="20"
-												 Icon="Solid_Lock"
-												 ToolTip="Lockock Achievement" />
-				</StackPanel>
-			</Button>
-			<!-- Unlock Achievement -->
-			<Button x:Name="UnlockAchievementButton"
-							Grid.Column="3"
-							Grid.Row="2"
-							Command="{Binding UnlockAchievementCommand}"
-							CommandParameter="{Binding SelectedAchievement}"
-							Margin="5"
-							Visibility="{Binding IsAchievementUnlockable, Converter={StaticResource btvc}}">
-				<StackPanel Orientation="Horizontal"
-										Margin="3">
-					<fa:SvgAwesome Height="20"
-												 Icon="Solid_Unlock"
-												 ToolTip="Unlock Achievement" />
-				</StackPanel>
-			</Button>
 		</Grid>
 	</Grid>
 </UserControl>
