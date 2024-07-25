@@ -25,10 +25,6 @@ public sealed class GameDetailModelTests
 		Assert.AreEqual(description, model.Description);
 		Assert.AreEqual(imageUrl, model.ImageUrl);
 		Assert.IsNull(model.LastUpdate);
-		Assert.AreEqual(0, model.AchievementsCount);
-		Assert.AreEqual(0, model.AchievementsProgress);
-		Assert.AreEqual(0, model.AchievementsUnlocked);
-		Assert.IsFalse(model.HasAchievements);
 	}
 
 	[TestMethod]
@@ -58,9 +54,5 @@ public sealed class GameDetailModelTests
 		Assert.AreEqual(imageUrl, model.ImageUrl);
 		Assert.AreEqual(lastUpdate, model.LastUpdate);
 		Assert.AreEqual(achievements, model.Achievements);
-		Assert.AreEqual(1, model.AchievementsCount);
-		Assert.AreEqual(100f, model.AchievementsProgress);
-		Assert.AreEqual(1, model.AchievementsUnlocked);
-		Assert.IsTrue(model.HasAchievements);
 	}
 }

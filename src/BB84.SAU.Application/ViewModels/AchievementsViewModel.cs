@@ -27,7 +27,9 @@ public sealed class AchievementsViewModel : ViewModelBase
 	private AchievementModel? _selectedAchievement;
 	private Image? _achievementImage;
 	private GameDetailModel _selectedGame;
+	private bool _hasAchievements;
 	private bool _isAchievementsLoading;
+	private float _overallAchievementProgress;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AchievementsViewModel"/> class.
@@ -92,16 +94,34 @@ public sealed class AchievementsViewModel : ViewModelBase
 	}
 
 	/// <summary>
+	/// Indicates if the game has achievements.
+	/// </summary>
+	public bool HasAchievements
+	{
+		get => _hasAchievements;
+		set => SetProperty(ref _hasAchievements, value);
+	}
+
+	/// <summary>
 	/// Indicates if the achievement can be locked.
 	/// </summary>
 	public bool IsAchievementLockable
 		=> SelectedAchievement is not null && SelectedAchievement.Unlocked.IsTrue();
 
 	/// <summary>
-	/// Indicates if the achievement can be undlocked.
+	/// Indicates if the achievement can be unlocked.
 	/// </summary>
 	public bool IsAchievementUnlockable
 		=> SelectedAchievement is not null && SelectedAchievement.Unlocked.IsFalse();
+
+	/// <summary>
+	/// Indicates if the overall achievement progress in percent
+	/// </summary>
+	public float OverallAchievementProgress
+	{
+		get => _overallAchievementProgress;
+		private set => SetProperty(ref _overallAchievementProgress, value);
+	}
 
 	/// <summary>
 	/// The command to load the achievements for the selected game.
@@ -153,6 +173,8 @@ public sealed class AchievementsViewModel : ViewModelBase
 
 				Model.Achievements.Add(achievementData);
 			}
+
+			HasAchievements = Model.Achievements.Count > 0;
 		}
 		finally
 		{
@@ -209,13 +231,16 @@ public sealed class AchievementsViewModel : ViewModelBase
 
 			if (_steamApiService.StatsRequested.IsFalse())
 				_ = _steamApiService.RequestStats();
+
+			HasAchievements = Model.Achievements.Count > 0;
+			OverallAchievementProgress = CalculateOverallProgress(Model);
 		}
 
 		if (propertyName == nameof(SelectedAchievement) && SelectedAchievement is not null)
 			AchievementImage = CreateImageFromUri(new(SelectedAchievement.ImageUrl));
 	}
 
-	private void SetAchievement(AchievementModel model, bool unlocked = false, DateTime? unlockedTime = null)
+	private void SetAchievement(AchievementModel model, bool unlocked, DateTime? unlockedTime = null)
 	{
 		model.Unlocked = unlocked;
 		model.UnlockedTime = unlockedTime;
@@ -224,6 +249,11 @@ public sealed class AchievementsViewModel : ViewModelBase
 		RaisePropertyChanged(nameof(IsAchievementLockable));
 		RaisePropertyChanged(nameof(IsAchievementUnlockable));
 
+		OverallAchievementProgress = CalculateOverallProgress(Model);
+
 		AchievementImage = CreateImageFromUri(new(model.ImageUrl));
 	}
+
+	private static float CalculateOverallProgress(GameDetailModel model)
+		=> model.Achievements.Count > 0 ? model.Achievements.Count(x => x.Unlocked) * 100f / model.Achievements.Count : 0f;
 }
