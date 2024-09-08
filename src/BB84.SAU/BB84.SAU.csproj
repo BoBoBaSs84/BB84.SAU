@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<ApplicationIcon>ApplicationIcon.ico</ApplicationIcon>
+		<IncludeAllContentForSelfExtract>True</IncludeAllContentForSelfExtract>
+		<IncludeNativeLibrariesForSelfExtract>True</IncludeNativeLibrariesForSelfExtract>
 		<OutputType Condition="$(Configuration) == 'Debug'">Exe</OutputType>
 		<OutputType Condition="$(Configuration) == 'Release'">WinExe</OutputType>
+		<PublishSingleFile>True</PublishSingleFile>
 		<UseWPF>true</UseWPF>
-		<ApplicationIcon>ApplicationIcon.ico</ApplicationIcon>
 		<UserSecretsId>3dff173d-f8d7-4c4f-8eeb-6a04e8d6bcfa</UserSecretsId>
 	</PropertyGroup>
 

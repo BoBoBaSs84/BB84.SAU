@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows;
 
 using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.Interfaces.Infrastructure.Persistence;
@@ -18,6 +19,7 @@ namespace BB84.SAU;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
+[SuppressMessage("Style", "IDE0058", Justification = "Not relevant here.")]
 public partial class App : WinApplication
 {
 	private readonly IHost _host;
@@ -74,7 +76,10 @@ public partial class App : WinApplication
 	}
 
 	private void OnUnhandledException(Exception exception)
-		=> _loggerService.Log(LogCritical, exception);
+	{
+		_loggerService.Log(LogCritical, exception);
+		MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+	}
 
 	private static IHostBuilder CreateHostBuilder()
 		=> Host.CreateDefaultBuilder().AddApplicationSettings().ConfigureServices((context, services)
@@ -106,7 +111,7 @@ public partial class App : WinApplication
 		IUserDataService userDataService = _host.Services.GetRequiredService<IUserDataService>();
 		UserDataModel currentUserData = _host.Services.GetRequiredService<UserDataModel>();
 
-		_ = await userDataService.SaveUserDataAsync(currentUserData)
+		await userDataService.SaveUserDataAsync(currentUserData)
 			.ConfigureAwait(false);
 
 		string message = $"User data saved.";
