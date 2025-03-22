@@ -1,6 +1,6 @@
 <Project>
   <ItemGroup>
-    <PackageVersion Include="BB84.Extensions" Version="2.10.130" />
+    <PackageVersion Include="BB84.Extensions" Version="2.10.315" />
     <PackageVersion Include="BB84.Notifications" Version="3.6.130" />
     <PackageVersion Include="FontAwesome5" Version="2.1.11" />
     <PackageVersion Include="MSTest" Version="3.8.2" />
