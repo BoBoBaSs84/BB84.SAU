@@ -1,4 +1,11 @@
-﻿using BB84.SAU.Application.Interfaces.Infrastructure.Persistence;
+﻿// -----------------------------------------------------------------------------
+// Copyright:	Robert Peter Meyer
+// License:		MIT
+//
+// This source code is licensed under the MIT license found in the
+// LICENSE file in the root directory of this source tree.
+// -----------------------------------------------------------------------------
+using BB84.SAU.Application.Interfaces.Infrastructure.Persistence;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Infrastructure.Interfaces.Provider;
 using BB84.SAU.Infrastructure.Persistence;
