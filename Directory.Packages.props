@@ -1,4 +1,7 @@
 <Project>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="BB84.Extensions" Version="2.10.315" />
     <PackageVersion Include="BB84.Notifications" Version="3.6.130" />

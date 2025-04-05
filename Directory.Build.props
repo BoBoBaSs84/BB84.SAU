@@ -13,20 +13,18 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
 		<AnalysisLevel>latest</AnalysisLevel>
 		<AnalysisMode>recommended</AnalysisMode>
-		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+		<AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 		<DebugType>full</DebugType>
-		<Deterministic>true</Deterministic>
-		<EnableNETAnalyzers>true</EnableNETAnalyzers>
-		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<GeneratedAssemblyInfoFile>Properties\AssemblyInfo.cs</GeneratedAssemblyInfoFile>
+		<Deterministic>True</Deterministic>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
+		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<LangVersion>latest</LangVersion>
-		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>		
+		<LangVersion>latest</LangVersion>		
 		<Nullable>enable</Nullable>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<Platforms>x64</Platforms>
@@ -34,7 +32,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<DebugType>none</DebugType>
-		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
@@ -50,9 +48,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
-		<IsPackable>false</IsPackable>
-		<IsTestProject>true</IsTestProject>
-		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<IsPackable>False</IsPackable>
+		<IsTestProject>True</IsTestProject>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
@@ -65,9 +63,5 @@
 		<Using Include="System.Diagnostics" />
 		<Using Include="System.Diagnostics.CodeAnalysis" />
 	</ItemGroup>	
-
-	<ItemGroup>
-		<Folder Include="Properties\" />
-	</ItemGroup>
 
 </Project>
