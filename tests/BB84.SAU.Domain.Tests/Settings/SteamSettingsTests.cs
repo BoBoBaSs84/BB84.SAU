@@ -1,4 +1,11 @@
-﻿using BB84.Extensions;
+﻿// -----------------------------------------------------------------------------
+// Copyright:	Robert Peter Meyer
+// License:		MIT
+//
+// This source code is licensed under the MIT license found in the
+// LICENSE file in the root directory of this source tree.
+// -----------------------------------------------------------------------------
+using BB84.Extensions;
 using BB84.SAU.Domain.Settings;
 
 namespace BB84.SAU.Domain.Tests.Settings;

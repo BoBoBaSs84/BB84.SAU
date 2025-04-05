@@ -1,4 +1,11 @@
-﻿using BB84.SAU.Application.Interfaces.Application.Provider;
+﻿// -----------------------------------------------------------------------------
+// Copyright:	Robert Peter Meyer
+// License:		MIT
+//
+// This source code is licensed under the MIT license found in the
+// LICENSE file in the root directory of this source tree.
+// -----------------------------------------------------------------------------
+using BB84.SAU.Application.Interfaces.Application.Provider;
 using BB84.SAU.Application.Interfaces.Application.Services;
 using BB84.SAU.Application.Interfaces.Infrastructure.Services;
 using BB84.SAU.Application.ViewModels;
