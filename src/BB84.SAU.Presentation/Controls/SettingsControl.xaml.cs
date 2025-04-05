@@ -1,4 +1,11 @@
-﻿using System.Text.RegularExpressions;
+﻿// -----------------------------------------------------------------------------
+// Copyright:	Robert Peter Meyer
+// License:		MIT
+//
+// This source code is licensed under the MIT license found in the
+// LICENSE file in the root directory of this source tree.
+// -----------------------------------------------------------------------------
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
 
