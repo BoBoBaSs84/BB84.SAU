@@ -55,7 +55,7 @@
 
 	<ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
 		<InternalsVisibleTo Include="$(AssemblyName).Tests" />
-		<InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
+		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
