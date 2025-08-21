@@ -6,10 +6,7 @@
 		<ProjectReference Include="..\BB84.SAU.Domain\BB84.SAU.Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Interfaces\Presentation\Services\" />
-	</ItemGroup>
-	<ItemGroup>
-  	<PackageReference Include="BB84.Extensions" VersionOverride="3.0.817" />
+  	<PackageReference Include="BB84.Extensions" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" />
 		<PackageReference Include="Microsoft.Extensions.Http" />
 	</ItemGroup>
