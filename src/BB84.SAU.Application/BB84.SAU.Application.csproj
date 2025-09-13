@@ -7,6 +7,7 @@
 	</ItemGroup>
 	<ItemGroup>
   	<PackageReference Include="BB84.Extensions" />
+  	<PackageReference Include="BB84.Notifications" VersionOverride="3.6.904" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" />
 		<PackageReference Include="Microsoft.Extensions.Http" />
 	</ItemGroup>
