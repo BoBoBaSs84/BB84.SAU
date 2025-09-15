@@ -17,6 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+  	<PackageReference Include="Microsoft.NET.ILLink.Tasks" />
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
