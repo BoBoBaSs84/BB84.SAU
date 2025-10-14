@@ -26,7 +26,7 @@ public sealed partial class UserDataServiceTests
 		bool result = await service.SaveUserDataAsync(null!);
 
 		Assert.IsFalse(result);
-		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
+		Assert.HasCount(1, _loggerServiceMock.Invocations);
 	}
 
 	[TestMethod]
@@ -43,8 +43,8 @@ public sealed partial class UserDataServiceTests
 		bool result = await service.SaveUserDataAsync(userData);
 
 		Assert.IsTrue(result);
-		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _directoryProviderMock.Invocations.Count);
-		Assert.AreEqual(1, _fileProviderMock.Invocations.Count);
+		Assert.IsEmpty(_loggerServiceMock.Invocations);
+		Assert.HasCount(1, _directoryProviderMock.Invocations);
+		Assert.HasCount(1, _fileProviderMock.Invocations);
 	}
 }

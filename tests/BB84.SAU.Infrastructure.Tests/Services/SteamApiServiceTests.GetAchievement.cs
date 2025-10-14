@@ -22,9 +22,9 @@ public sealed partial class SteamApiServiceTests
 
 		Assert.IsFalse(achieved);
 		Assert.IsNull(unlockTime);
-		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
-		Assert.AreEqual(0, _steamWorksProviderMock.Invocations.Count);
+		Assert.HasCount(1, _loggerServiceMock.Invocations);
+		Assert.HasCount(1, _notificationServiceMock.Invocations);
+		Assert.IsEmpty(_steamWorksProviderMock.Invocations);
 	}
 
 	[TestMethod]
@@ -44,9 +44,9 @@ public sealed partial class SteamApiServiceTests
 
 		Assert.IsFalse(result.Achieved);
 		Assert.IsNull(result.UnlockTime);
-		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(3, _notificationServiceMock.Invocations.Count);
-		Assert.AreEqual(3, _steamWorksProviderMock.Invocations.Count);
+		Assert.IsEmpty(_loggerServiceMock.Invocations);
+		Assert.HasCount(3, _notificationServiceMock.Invocations);
+		Assert.HasCount(3, _steamWorksProviderMock.Invocations);
 	}
 
 	[TestMethod]
@@ -66,8 +66,8 @@ public sealed partial class SteamApiServiceTests
 
 		Assert.IsTrue(result.Achieved);
 		Assert.AreEqual(DateTimeOffset.FromUnixTimeSeconds(unlockTime).LocalDateTime, result.UnlockTime);
-		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(2, _notificationServiceMock.Invocations.Count);
-		Assert.AreEqual(3, _steamWorksProviderMock.Invocations.Count);
+		Assert.IsEmpty(_loggerServiceMock.Invocations);
+		Assert.HasCount(2, _notificationServiceMock.Invocations);
+		Assert.HasCount(3, _steamWorksProviderMock.Invocations);
 	}
 }

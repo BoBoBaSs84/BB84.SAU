@@ -34,7 +34,7 @@ public sealed class AchievementModelTests
 		Assert.AreEqual(icon, model.Icon);
 		Assert.AreEqual(iconGray, model.IconGray);
 		Assert.AreEqual(iconGray, model.ImageUrl);
-		Assert.AreEqual(false, model.Unlocked);
+		Assert.IsFalse(model.Unlocked);
 		Assert.IsNull(model.UnlockedTime);
 		Assert.IsNull(model.LastUpdate);
 	}
