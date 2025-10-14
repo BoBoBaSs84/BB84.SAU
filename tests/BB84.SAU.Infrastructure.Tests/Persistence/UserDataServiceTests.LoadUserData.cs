@@ -27,8 +27,8 @@ public sealed partial class UserDataServiceTests
 		UserDataModel result = await service.LoadUserDataAsync();
 
 		Assert.IsNotNull(result);
-		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(2, _fileProviderMock.Invocations.Count);
+		Assert.HasCount(1, _loggerServiceMock.Invocations);
+		Assert.HasCount(2, _fileProviderMock.Invocations);
 	}
 
 	[TestMethod]
@@ -41,7 +41,7 @@ public sealed partial class UserDataServiceTests
 		UserDataModel result = await service.LoadUserDataAsync();
 
 		Assert.IsNotNull(result);
-		Assert.AreEqual(1, _fileProviderMock.Invocations.Count);
+		Assert.HasCount(1, _fileProviderMock.Invocations);
 	}
 
 	[TestMethod]
@@ -64,7 +64,7 @@ public sealed partial class UserDataServiceTests
 		Assert.AreEqual(testDate, result.Created);
 		Assert.AreEqual(testDate, result.LastLogOff);
 		Assert.IsNull(result.LastUpdate);
-		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(2, _fileProviderMock.Invocations.Count);
+		Assert.IsEmpty(_loggerServiceMock.Invocations);
+		Assert.HasCount(2, _fileProviderMock.Invocations);
 	}
 }

@@ -20,9 +20,9 @@ public sealed partial class SteamApiServiceTests
 
 		service.Shutdown();
 
-		Assert.AreEqual(0, _fileProviderMock.Invocations.Count);
-		Assert.AreEqual(0, _steamWorksProviderMock.Invocations.Count);
-		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
+		Assert.IsEmpty(_fileProviderMock.Invocations);
+		Assert.IsEmpty(_steamWorksProviderMock.Invocations);
+		Assert.HasCount(1, _loggerServiceMock.Invocations);
 	}
 
 	[TestMethod]
@@ -36,8 +36,8 @@ public sealed partial class SteamApiServiceTests
 		service.Shutdown();
 
 		Assert.IsNull(service.AppId);
-		Assert.AreEqual(2, _fileProviderMock.Invocations.Count);
-		Assert.AreEqual(2, _steamWorksProviderMock.Invocations.Count);
-		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
+		Assert.HasCount(2, _fileProviderMock.Invocations);
+		Assert.HasCount(2, _steamWorksProviderMock.Invocations);
+		Assert.IsEmpty(_loggerServiceMock.Invocations);
 	}
 }

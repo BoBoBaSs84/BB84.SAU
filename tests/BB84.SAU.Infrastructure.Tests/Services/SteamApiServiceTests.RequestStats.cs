@@ -23,8 +23,8 @@ public sealed partial class SteamApiServiceTests
 
 		Assert.IsFalse(result);
 		Assert.IsFalse(service.StatsRequested);
-		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
+		Assert.HasCount(1, _loggerServiceMock.Invocations);
+		Assert.HasCount(1, _notificationServiceMock.Invocations);
 	}
 
 	[TestMethod]
@@ -40,8 +40,8 @@ public sealed partial class SteamApiServiceTests
 
 		Assert.IsFalse(result);
 		Assert.IsFalse(service.StatsRequested);
-		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(2, _notificationServiceMock.Invocations.Count);
+		Assert.IsEmpty(_loggerServiceMock.Invocations);
+		Assert.HasCount(2, _notificationServiceMock.Invocations);
 	}
 
 	[TestMethod]
@@ -57,8 +57,8 @@ public sealed partial class SteamApiServiceTests
 
 		Assert.IsTrue(result);
 		Assert.IsTrue(service.StatsRequested);
-		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(2, _notificationServiceMock.Invocations.Count);
+		Assert.IsEmpty(_loggerServiceMock.Invocations);
+		Assert.HasCount(2, _notificationServiceMock.Invocations);
 	}
 
 	[TestMethod]
@@ -74,7 +74,7 @@ public sealed partial class SteamApiServiceTests
 
 		Assert.IsFalse(result);
 		Assert.IsFalse(service.StatsRequested);
-		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(2, _notificationServiceMock.Invocations.Count);
+		Assert.HasCount(1, _loggerServiceMock.Invocations);
+		Assert.HasCount(2, _notificationServiceMock.Invocations);
 	}
 }

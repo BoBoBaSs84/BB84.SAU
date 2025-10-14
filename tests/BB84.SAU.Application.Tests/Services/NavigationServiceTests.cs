@@ -21,6 +21,6 @@ public sealed class NavigationServiceTests
 
 		service.NavigateTo<AboutViewModel>();
 
-		Assert.IsInstanceOfType(service.CurrentView, typeof(AboutViewModel));
+		Assert.IsInstanceOfType<AboutViewModel>(service.CurrentView);
 	}
 }

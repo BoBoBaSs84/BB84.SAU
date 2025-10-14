@@ -28,8 +28,8 @@ public sealed partial class SteamWebServiceTests
 			.ConfigureAwait(false);
 
 		Assert.IsFalse(result.Any());
-		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
+		Assert.HasCount(1, _loggerServiceMock.Invocations);
+		Assert.HasCount(1, _notificationServiceMock.Invocations);
 	}
 
 	[TestMethod]
@@ -44,10 +44,10 @@ public sealed partial class SteamWebServiceTests
 			.ConfigureAwait(false);
 
 		Assert.IsFalse(result.Any());
-		Assert.AreEqual(1, _httpClientFactoryMock.Invocations.Count);
-		Assert.AreEqual(1, _httpMessageHandler.Invocations.Count);
-		Assert.AreEqual(1, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
+		Assert.HasCount(1, _httpClientFactoryMock.Invocations);
+		Assert.HasCount(1, _httpMessageHandler.Invocations);
+		Assert.HasCount(1, _loggerServiceMock.Invocations);
+		Assert.HasCount(1, _notificationServiceMock.Invocations);
 	}
 
 	[TestMethod]
@@ -62,9 +62,9 @@ public sealed partial class SteamWebServiceTests
 			.ConfigureAwait(false);
 
 		Assert.IsTrue(result.Any());
-		Assert.AreEqual(1, _httpClientFactoryMock.Invocations.Count);
-		Assert.AreEqual(1, _httpMessageHandler.Invocations.Count);
-		Assert.AreEqual(0, _loggerServiceMock.Invocations.Count);
-		Assert.AreEqual(1, _notificationServiceMock.Invocations.Count);
+		Assert.HasCount(1, _httpClientFactoryMock.Invocations);
+		Assert.HasCount(1, _httpMessageHandler.Invocations);
+		Assert.IsEmpty(_loggerServiceMock.Invocations);
+		Assert.HasCount(1, _notificationServiceMock.Invocations);
 	}
 }

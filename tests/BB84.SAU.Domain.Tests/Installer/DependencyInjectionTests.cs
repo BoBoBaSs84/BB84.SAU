@@ -23,6 +23,6 @@ public sealed class DependencyInjectionTests
 
 		services.RegisterDomainServices();
 
-		Assert.AreEqual(2, services.Count);
+		Assert.HasCount(2, services);
 	}
 }

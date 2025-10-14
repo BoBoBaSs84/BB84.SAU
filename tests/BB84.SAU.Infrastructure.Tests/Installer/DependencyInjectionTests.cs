@@ -29,7 +29,7 @@ public class DependencyInjectionTests
 
 		services.RegisterInfrastructureServices(env.Object);
 
-		Assert.AreEqual(29, services.Count);
+		Assert.HasCount(29, services);
 	}
 
 	[TestMethod]
@@ -43,6 +43,6 @@ public class DependencyInjectionTests
 
 		services.RegisterInfrastructureServices(env.Object);
 
-		Assert.AreEqual(17, services.Count);
+		Assert.HasCount(17, services);
 	}
 }
