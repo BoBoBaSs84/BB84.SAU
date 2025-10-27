@@ -3,8 +3,8 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="BB84.Extensions" Version="3.2.930" />
-    <PackageVersion Include="BB84.Notifications" Version="3.6.904" />
+    <PackageVersion Include="BB84.Extensions" Version="3.3.1026" />
+    <PackageVersion Include="BB84.Notifications" Version="3.6.1026" />
     <PackageVersion Include="FontAwesome5" Version="2.1.11" />
     <PackageVersion Include="MSTest" Version="4.0.1" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.10" />
