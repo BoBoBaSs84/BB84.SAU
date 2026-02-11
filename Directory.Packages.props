@@ -6,7 +6,7 @@
     <PackageVersion Include="BB84.Extensions" Version="4.2.122" />
     <PackageVersion Include="BB84.Notifications" Version="4.1.122" />
     <PackageVersion Include="FontAwesome5" Version="2.1.11" />
-    <PackageVersion Include="MSTest" Version="4.0.2" />
+    <PackageVersion Include="MSTest" Version="4.1.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.2" />
