@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup />
+	<PropertyGroup>
+		<IsPackable>False</IsPackable>
+		<IsTestProject>True</IsTestProject>
+	</PropertyGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\BB84.SAU.Application\BB84.SAU.Application.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Moq" />
-		<PackageReference Include="coverlet.collector">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 		<PackageReference Include="MSTest" />
 	</ItemGroup>
 </Project>
