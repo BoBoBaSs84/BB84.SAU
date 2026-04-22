@@ -1,0 +1,45 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="BB84.SAU.sln.licenseheader" />
+    <File Path="CODE_OF_CONDUCT.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+    <File Path="test.runsettings" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/BB84.SAU.Application/BB84.SAU.Application.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="src/BB84.SAU.Domain/BB84.SAU.Domain.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="src/BB84.SAU.Infrastructure/BB84.SAU.Infrastructure.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="src/BB84.SAU.Presentation/BB84.SAU.Presentation.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="src/BB84.SAU/BB84.SAU.csproj">
+      <Platform Project="x64" />
+    </Project>
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BB84.SAU.Application.Tests/BB84.SAU.Application.Tests.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="tests/BB84.SAU.Domain.Tests/BB84.SAU.Domain.Tests.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="tests/BB84.SAU.Infrastructure.Tests/BB84.SAU.Infrastructure.Tests.csproj">
+      <Platform Project="x64" />
+    </Project>
+  </Folder>
+</Solution>
