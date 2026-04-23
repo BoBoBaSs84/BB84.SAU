@@ -4,7 +4,7 @@
 		<IsTestProject>True</IsTestProject>
 	</PropertyGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\BB84.SAU.Application\BB84.SAU.Application.csproj" />
+		<ProjectReference Include="..\..\src\BB84.SAU.Application\BB84.SAU.Application.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Moq" />

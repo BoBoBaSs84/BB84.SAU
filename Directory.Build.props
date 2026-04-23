@@ -1,9 +1,8 @@
 <Project>
-
 	<PropertyGroup>
-		<VersionStatus>Beta</VersionStatus>
+		<VersionStatus></VersionStatus>
 		<VersionMajor>1</VersionMajor>
-		<VersionMinor>0</VersionMinor>
+		<VersionMinor>1</VersionMinor>
 		<VersionPatch>$([System.DateTime]::UtcNow.ToString("MMdd"))</VersionPatch>
 		<VersionRevision>$([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes.ToString("0"))</VersionRevision>
 		<VersionPrefix>$(VersionMajor).$(VersionMinor).$(VersionPatch).$(VersionRevision)</VersionPrefix>
@@ -11,7 +10,6 @@
 		<VersionSuffix Condition="'$(Configuration)'=='Debug'">Development</VersionSuffix>
 		<VersionSuffix Condition="'$(Configuration)'=='Release'">$(VersionStatus)</VersionSuffix>
 	</PropertyGroup>
-
 	<PropertyGroup>
 		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
 		<AnalysisLevel>latest</AnalysisLevel>
@@ -24,17 +22,15 @@
 		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<LangVersion>latest</LangVersion>		
+		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<Platforms>x64</Platforms>
 	</PropertyGroup>
-
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<DebugType>none</DebugType>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 	</PropertyGroup>
-
 	<PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
 		<Authors>BoBoBaSs84</Authors>
 		<Company>https://github.com/BoBoBaSs84</Company>
@@ -46,20 +42,16 @@
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<Title>$(AssemblyName)</Title>
 	</PropertyGroup>
-
 	<PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 	</PropertyGroup>
-
 	<ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
 		<InternalsVisibleTo Include="$(AssemblyName).Tests" />
 		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
 	</ItemGroup>
-
 	<ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))">
 		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
 		<Using Include="System.Diagnostics" />
 		<Using Include="System.Diagnostics.CodeAnalysis" />
-	</ItemGroup>	
-
+	</ItemGroup>
 </Project>

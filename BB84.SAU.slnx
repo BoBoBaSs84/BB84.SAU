@@ -6,13 +6,13 @@
     <File Path=".editorconfig" />
     <File Path=".gitattributes" />
     <File Path=".gitignore" />
-    <File Path="BB84.SAU.sln.licenseheader" />
+    <File Path="BB84.SAU.slnx.licenseheader" />
+    <File Path="CODEOWNERS" />
     <File Path="CODE_OF_CONDUCT.md" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
     <File Path="LICENSE" />
     <File Path="README.md" />
-    <File Path="test.runsettings" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/BB84.SAU.Application/BB84.SAU.Application.csproj">

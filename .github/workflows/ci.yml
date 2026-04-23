@@ -1,16 +1,22 @@
-name: CI
+name: Continuous Integration
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
+
 jobs:
   build:
+    name: Build and Test
     runs-on: windows-latest
+
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
     - name: Checkout
@@ -18,16 +24,16 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Setup .NET
+    - name: Setup
       uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: '8.0.x'
-
+        dotnet-version: 8.0.x
+        
     - name: Restore
-      run: dotnet restore
-    
+      run: dotnet restore BB84.SAU.slnx
+      
     - name: Build
-      run: dotnet build --no-restore --configuration release --verbosity minimal
-    
+      run: dotnet build BB84.SAU.slnx --no-restore --configuration release --verbosity minimal
+      
     - name: Test
-      run: dotnet test --no-build --configuration release --verbosity minimal
+      run: dotnet test BB84.SAU.slnx --no-build --configuration release --verbosity minimal

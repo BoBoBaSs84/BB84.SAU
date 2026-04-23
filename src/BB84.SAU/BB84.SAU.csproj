@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<ApplicationIcon>ApplicationIcon.ico</ApplicationIcon>
 		<IncludeAllContentForSelfExtract>True</IncludeAllContentForSelfExtract>
@@ -10,16 +9,13 @@
 		<UseWPF>true</UseWPF>
 		<UserSecretsId>3dff173d-f8d7-4c4f-8eeb-6a04e8d6bcfa</UserSecretsId>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\BB84.SAU.Infrastructure\BB84.SAU.Infrastructure.csproj" />
 		<ProjectReference Include="..\BB84.SAU.Presentation\BB84.SAU.Presentation.csproj" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
-
 </Project>

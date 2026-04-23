@@ -7,6 +7,6 @@
 		<ProjectReference Include="..\BB84.SAU.Application\BB84.SAU.Application.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="steam_api64.dll" CopyToOutputDirectory="PreserveNewest" />
+		<None Update="steam_api64.dll" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 </Project>
