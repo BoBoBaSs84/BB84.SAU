@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="BB84.Extensions" Version="4.6.803" />
+    <PackageVersion Include="BB84.Extensions" Version="5.0.810" />
     <PackageVersion Include="BB84.Notifications" Version="5.0.726" />
     <PackageVersion Include="FontAwesome5" Version="2.1.11" />
     <PackageVersion Include="MSTest" Version="4.3.3" />
