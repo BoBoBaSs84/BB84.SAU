@@ -36,7 +36,7 @@ public sealed class SteamSettingsTests
 		SteamSettings settings = new()
 		{
 			Id = 1023978410298751L,
-			ApiKey = string.Concat("SuperFanceUnitTestString").GetMd5Utf8()
+			ApiKey = string.Concat("SuperFanceUnitTestString").GetMD5()
 		};
 
 		Assert.IsFalse(settings.HasErrors);
