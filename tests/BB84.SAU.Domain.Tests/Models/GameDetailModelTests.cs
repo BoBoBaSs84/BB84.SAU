@@ -60,6 +60,6 @@ public sealed class GameDetailModelTests
 		Assert.AreEqual(description, model.Description);
 		Assert.AreEqual(imageUrl, model.ImageUrl);
 		Assert.AreEqual(lastUpdate, model.LastUpdate);
-		Assert.AreEqual(achievements, model.Achievements);
+		Assert.AreEquivalent(achievements, model.Achievements);
 	}
 }
