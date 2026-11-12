@@ -1,13 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<IsPackable>False</IsPackable>
-		<IsTestProject>True</IsTestProject>
-	</PropertyGroup>
+﻿<Project Sdk="MSTest.Sdk">
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\BB84.SAU.Infrastructure\BB84.SAU.Infrastructure.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Moq" />
-		<PackageReference Include="MSTest" />
 	</ItemGroup>
 </Project>
