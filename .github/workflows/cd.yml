@@ -8,21 +8,27 @@ on:
 permissions:
   contents: write
 
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  SOLUTION: BB84.SAU.slnx
+  CONFIGURATION: Release
+
 jobs:
   deploy:
     name: Build, Test & Publish
     runs-on: windows-latest
 
-    env:
-      DOTNET_NOLOGO: true
-      DOTNET_CLI_TELEMETRY_OPTOUT: true
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
 
       - name: Extract version from tag
         id: version
@@ -32,12 +38,12 @@ jobs:
           echo "Extracted version: $tagName"
 
       - name: Restore dependencies
-        run: dotnet restore BB84.SAU.slnx
+        run: dotnet restore ${{ env.SOLUTION }}
 
       - name: Build solution
         run: >
-          dotnet build BB84.SAU.slnx
-          --configuration Release
+          dotnet build ${{ env.SOLUTION }}
+          --configuration ${{ env.CONFIGURATION }}
           --no-restore
           -p:VersionPrefix=${{ steps.version.outputs.VERSION }}
           -p:VersionSuffix=
@@ -45,19 +51,19 @@ jobs:
           -p:PackageVersion=${{ steps.version.outputs.VERSION }}
 
       - name: Run tests
-        run: dotnet test BB84.SAU.slnx --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test ${{ env.SOLUTION }} --configuration ${{ env.CONFIGURATION }} --no-build --report-trx --results-directory ./test-results
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: test-results
-          path: '**/TestResults/*.trx'
+          path: ./test-results/*.trx
 
       - name: Publish application
         run: >
           dotnet publish src/BB84.SAU/BB84.SAU.csproj
-          --configuration Release
+          --configuration ${{ env.CONFIGURATION }}
           --runtime win-x64
           --output ./publish
           -p:VersionPrefix=${{ steps.version.outputs.VERSION }}
